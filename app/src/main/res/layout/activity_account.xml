@@ -20,8 +20,8 @@
         <!-- Profile Image -->
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_profile_placeholder"
             android:padding="8dp"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:text="Edit Profile"
+            android:text="Edit Picture"
             android:textColor="#FFFFFF"
             android:backgroundTint="#1E88E5"
             android:fontFamily="sans-serif-medium" />
@@ -175,4 +175,3 @@
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
