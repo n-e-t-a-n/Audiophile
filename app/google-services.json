@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "938211324700",
+    "project_id": "mobdevfinals-a2036",
+    "storage_bucket": "mobdevfinals-a2036.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938211324700:android:4fd0351ed18156725d80d9",
+        "android_client_info": {
+          "package_name": "com.example.shopphile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Oau4yB40nUzLJp50v4767qs8298n5EY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
