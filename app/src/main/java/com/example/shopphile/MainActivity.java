@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -113,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
         ordersButtonText.setOnClickListener(goToOrders);
 
         // Account button navigation
-        ImageView accountButton = findViewById(R.id.account); // ImageView for account
-        TextView accountText = findViewById(R.id.account_text); // TextView for account
+        LinearLayout accountButton = findViewById(R.id.account); // Updated to LinearLayout
+        TextView accountText = findViewById(R.id.account_text);
 
         View.OnClickListener accountListener = v -> {
             Intent intent = new Intent(MainActivity.this, AccountActivity.class); // Redirect to AccountActivity
