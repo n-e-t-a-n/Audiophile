@@ -3,6 +3,7 @@ package com.example.shopphile;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +58,7 @@ public class AccountActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> showLogoutConfirmationDialog());
 
+        //Push test
         // Edit Profile Picture Button
         Button editProfilePicButton = findViewById(R.id.edit_profile_pic_button);
         editProfilePicButton.setOnClickListener(v -> openFilePicker());
