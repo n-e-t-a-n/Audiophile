@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,6 +55,20 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         //push test
+        // Initialize FirebaseAuth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize Profile Image View
+        profileImage = findViewById(R.id.profile_image);
+
+        // Load the saved profile image
+        loadProfileImage();
+
+        // Initialize the Logout button
+        Button logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(v -> showLogoutConfirmationDialog());
+
+
         // Initialize FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
