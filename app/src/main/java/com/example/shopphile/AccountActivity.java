@@ -43,8 +43,7 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
-
+        //push test
         // Initialize FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,7 +57,6 @@ public class AccountActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> showLogoutConfirmationDialog());
 
-        
         // Edit Profile Picture Button
         Button editProfilePicButton = findViewById(R.id.edit_profile_pic_button);
         editProfilePicButton.setOnClickListener(v -> openFilePicker());
