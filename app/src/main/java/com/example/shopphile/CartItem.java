@@ -6,10 +6,10 @@ public class CartItem {
     private String brandName;
     private double productPrice;
     private int quantity;
-    private int productImage;
+    private String productImage;
 
     // CONSTRUCTORS
-    public CartItem(String productName, String brandName, double productPrice, int quantity, int productImage) {
+    public CartItem(String productName, String brandName, double productPrice, int quantity, String productImage) {
         this.productName = productName;
         this.brandName = brandName;
         this.productPrice = productPrice;
@@ -17,7 +17,7 @@ public class CartItem {
         this.productImage = productImage;
     }
 
-    public CartItem(int id, String productName, String brandName, double productPrice, int quantity, int productImage) {
+    public CartItem(int id, String productName, String brandName, double productPrice, int quantity, String productImage) {
         this.id = id;
         this.productName = productName;
         this.brandName = brandName;
@@ -32,12 +32,12 @@ public class CartItem {
     public String getBrandName() { return brandName; }
     public double getProductPrice() { return productPrice; }
     public int getQuantity() { return quantity; }
-    public int getProductImage() { return productImage; }
+    public String getProductImage() { return productImage; }
 
     // SETTERS
     public void setProductName(String productName) { this.productName = productName; }
     public void setBrandName(String brandName) { this.brandName = brandName; }
     public void setProductPrice(double productPrice) { this.productPrice = productPrice; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
-    public void setProductImage(int productImage) { this.productImage = productImage; }
+    public void setProductImage(String productImage) { this.productImage = productImage; }
 }

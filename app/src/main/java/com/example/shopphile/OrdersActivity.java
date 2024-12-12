@@ -27,10 +27,8 @@ public class OrdersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // RETRIEVE FROM DATABASE
-        DBHelper dbHelper = new DBHelper(this);
-        List<Order> orderList = dbHelper.getAllOrders();
 
-        orderAdapter = new OrderAdapter(orderList);
-        recyclerView.setAdapter(orderAdapter);
+        // orderAdapter = new OrderAdapter();
+        // recyclerView.setAdapter(orderAdapter);
     }
 }

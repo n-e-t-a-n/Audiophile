@@ -16,7 +16,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private List<CartItem> cartItems;
     private Context context;
     private OnCartUpdateListener listener;
-    private DBHelper dbHelper;
 
     public interface OnCartUpdateListener {
         void onCartUpdated();
@@ -26,7 +25,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.cartItems = cartItems;
         this.context = context;
         this.listener = listener;
-        this.dbHelper = new DBHelper(context);
     }
 
     @NonNull
@@ -44,7 +42,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.brandName.setText(item.getBrandName());
         holder.productPrice.setText(String.format("$%.2f", item.getProductPrice()));
         holder.cartItemQuantity.setText(String.valueOf(item.getQuantity()));
-        holder.productImage.setImageResource(item.getProductImage());
 
         // ADD QUANTITY
         holder.addQuantity.setOnClickListener(v -> {
@@ -60,7 +57,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 notifyItemChanged(position);
                 listener.onCartUpdated();
             } else {
-                dbHelper.deleteCartItem(item.getProductName());
                 cartItems.remove(position);
                 notifyItemRemoved(position);
                 listener.onCartUpdated();
@@ -69,7 +65,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // DELETE ITEM
         holder.deleteItem.setOnClickListener(v -> {
-            dbHelper.deleteCartItem(item.getProductName());
             cartItems.remove(position);
             notifyItemRemoved(position);
             listener.onCartUpdated();

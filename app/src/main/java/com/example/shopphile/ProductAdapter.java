@@ -11,58 +11,56 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<CartItem> products;
-    private DBHelper dbHelper;
+    private List<CartItem> productList;
     private Context context;
 
-    public ProductAdapter(List<CartItem> products, Context context) {
-        this.products = products;
+    public ProductAdapter(List<CartItem> productList, Context context) {
+        this.productList = productList;
         this.context = context;
-        this.dbHelper = new DBHelper(context);
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        CartItem item = products.get(position);
+        CartItem product = productList.get(position);
 
-        holder.productName.setText(item.getProductName());
-        holder.brandName.setText(item.getBrandName());
-        holder.productPrice.setText("$" + item.getProductPrice());
-        holder.productImage.setImageResource(item.getProductImage());
+        holder.nameTextView.setText(product.getProductName());
+        holder.sellerTextView.setText(product.getBrandName());
+        holder.priceTextView.setText(String.format("$%.2f", product.getProductPrice()));
 
-        holder.addToCartButton.setOnClickListener(v -> {
-            dbHelper.addItemToCart(item.getProductName(), item.getProductPrice(), 1, item.getBrandName(), item.getProductImage());
-            Toast.makeText(context, item.getProductName() + " added to cart", Toast.LENGTH_SHORT).show();
-        });
+        // Load the image from URL using Glide
+        Glide.with(context)
+                .load(product.getProductImage()) // URL of the image
+                .into(holder.productImageView);
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return productList.size();
     }
 
-    public class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, brandName, productPrice;
-        ImageView productImage, addToCartButton;
+    static class ProductViewHolder extends RecyclerView.ViewHolder {
+        TextView nameTextView, sellerTextView, priceTextView;
+        ImageView productImageView;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.product_name);
-            brandName = itemView.findViewById(R.id.brand_name);
-            productPrice = itemView.findViewById(R.id.product_price);
-            productImage = itemView.findViewById(R.id.product_image);
-            addToCartButton = itemView.findViewById(R.id.addtocart_button);
+            nameTextView = itemView.findViewById(R.id.product_name);
+            sellerTextView = itemView.findViewById(R.id.brand_name);
+            priceTextView = itemView.findViewById(R.id.product_price);
+            productImageView = itemView.findViewById(R.id.product_image);
         }
     }
 }

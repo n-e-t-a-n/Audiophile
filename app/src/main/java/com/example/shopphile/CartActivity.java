@@ -18,7 +18,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
     private CartAdapter cartAdapter;
     private List<CartItem> cartItems;
     private TextView totalCount, totalAmount, shippingAmount, payableAmount;
-    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         shippingAmount = findViewById(R.id.shipping_amount);
         payableAmount = findViewById(R.id.payable_amount);
 
-        dbHelper = new DBHelper(this);
-
-
-        cartItems = dbHelper.getCartItems();
+        cartItems = null;
         cartAdapter = new CartAdapter(cartItems, this, this);
         recyclerViewCart.setAdapter(cartAdapter);
 
@@ -62,17 +58,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
     }
 
     private void checkout() {
-        String orderDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
 
-        List<CartItem> cartItems = dbHelper.getCartItems();
-
-        if (cartItems.isEmpty()) {
-            return;
-        }
-        dbHelper.addOrder(orderDate, cartItems);
-        for (CartItem item : cartItems) {
-            dbHelper.deleteCartItem(item.getProductName());
-        }
     }
 
     void calculateTotals() {
