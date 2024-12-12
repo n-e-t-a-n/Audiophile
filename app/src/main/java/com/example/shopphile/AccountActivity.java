@@ -16,7 +16,7 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
+        //Push test
         // Edit Profile Picture Button
         Button editProfilePicButton = findViewById(R.id.edit_profile_pic_button);
         editProfilePicButton.setOnClickListener(new View.OnClickListener() {
