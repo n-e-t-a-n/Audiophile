@@ -7,52 +7,58 @@
     android:background="#FAF6F6"
     tools:context=".AccountActivity">
 
-    <!-- Profile Section -->
-    <LinearLayout
+    <!-- Profile Section with Shadow -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_margin="8dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_profile_placeholder"
-            android:padding="8dp"
-            android:contentDescription="Profile Picture" />
-
-        <!-- Profile Name -->
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="center"
-            android:text="John Doe"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- User Email -->
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_profile_placeholder"
+                android:padding="8dp"
+                android:contentDescription="Profile Picture" />
 
-        <!-- Edit Profile Button -->
-        <Button
-            android:id="@+id/edit_profile_pic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:text="Edit Picture"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#FFA000"
-            android:fontFamily="sans-serif-medium" />
-    </LinearLayout>
+            <!-- Profile Name -->
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:text="John Doe"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <!-- Edit Profile Button -->
+            <Button
+                android:id="@+id/edit_profile_pic_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:text="Edit Picture"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#FFA000"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <!-- Logout Button -->
     <Button
