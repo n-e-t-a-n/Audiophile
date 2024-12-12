@@ -2,16 +2,25 @@ package com.example.shopphile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ProductAdapter adapter;
     private List<CartItem> popularProducts;
     private FirebaseAuth mAuth;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +63,39 @@ public class MainActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         recyclerViewPopularProducts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        // SAMPLE PRODUCTS
+        // Initialize an empty list for popular products
         popularProducts = new ArrayList<>();
-        popularProducts.add(new CartItem("Longsword", "EAE", 249.00, 1, R.drawable.longsword));
-        popularProducts.add(new CartItem("Flint V2", "Strymon", 349.00, 1, R.drawable.flint_v2));
-        popularProducts.add(new CartItem("ACS1", "Walrus", 296.34, 1, R.drawable.acs1));
-        popularProducts.add(new CartItem("DD-8", "Boss", 179.99, 1, R.drawable.dd_8));
-        popularProducts.add(new CartItem("Morning Glory V4", "JHS", 199.00, 1, R.drawable.morning_glory));
 
-        adapter = new ProductAdapter(popularProducts, this);
-        recyclerViewPopularProducts.setAdapter(adapter);
+        // Get products from Firestore
+        db.collection("items")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Check if documents are retrieved successfully
+                    if (queryDocumentSnapshots != null) {
+                        // Loop through all the documents and retrieve the data
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            // Access the data for each document
+                            String name = document.getString("name");
+                            String seller = document.getString("seller");
+                            String imageUrl = document.getString("imageUrl");
+                            Long stock = document.getLong("stock");
+                            Double price = document.getDouble("price");
+
+                            // Add the data to the list (populating popularProducts)
+                            if (name != null && seller != null && imageUrl != null && stock != null && price != null) {
+                                popularProducts.add(new CartItem(name, seller, price, Math.toIntExact(stock), imageUrl));
+                            }
+                        }
+
+                        // Now that we have data, set the adapter to the RecyclerView
+                        adapter = new ProductAdapter(popularProducts, this);
+                        recyclerViewPopularProducts.setAdapter(adapter);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle any errors that occur
+                    Log.w("Firestore", "Error getting documents.", e);
+                });
     }
 
     private void setupClickListeners() {
