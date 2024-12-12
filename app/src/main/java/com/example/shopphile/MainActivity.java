@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -112,19 +113,18 @@ public class MainActivity extends AppCompatActivity {
         TextView ordersButtonText = findViewById(R.id.orders_button_text);
         ordersButtonText.setOnClickListener(goToOrders);
 
-        // Sign out button navigation
-        ImageView signOutButton = findViewById(R.id.signout);  // ImageView for sign out
-        TextView signOutText = findViewById(R.id.signout_text); // TextView for sign out
+        // Account button navigation
+        LinearLayout accountButton = findViewById(R.id.account); // Updated to LinearLayout
+        TextView accountText = findViewById(R.id.account_text);
 
-        // Set the same OnClickListener for both sign out button and sign out text
-        View.OnClickListener signOutListener = v -> {
-            mAuth.signOut();  // Sign out from Firebase Auth
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);  // Redirect to login
+        View.OnClickListener accountListener = v -> {
+            Intent intent = new Intent(MainActivity.this, AccountActivity.class); // Redirect to AccountActivity
             startActivity(intent);
-            finish();  // Close the current activity
         };
 
-        signOutButton.setOnClickListener(signOutListener);
-        signOutText.setOnClickListener(signOutListener);
+        accountButton.setOnClickListener(accountListener);
+        accountText.setOnClickListener(accountListener);
+
+        // Sign out functionality removed since the button is now "Account"
     }
 }
