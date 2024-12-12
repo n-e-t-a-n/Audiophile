@@ -1,6 +1,7 @@
 package com.example.shopphile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -29,9 +30,18 @@ public class AccountActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Uri selectedImageUri = result.getData().getData();
                     if (selectedImageUri != null) {
-                        saveProfileImageUri(selectedImageUri.toString());
-                        profileImage.setImageURI(selectedImageUri);
-                        Toast.makeText(this, "Profile picture updated!", Toast.LENGTH_SHORT).show();
+                        try {
+                            // Persist URI permissions
+                            getContentResolver().takePersistableUriPermission(
+                                    selectedImageUri,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            );
+                            saveProfileImageUri(selectedImageUri.toString());
+                            profileImage.setImageURI(selectedImageUri);
+                            Toast.makeText(this, "Profile picture updated!", Toast.LENGTH_SHORT).show();
+                        } catch (SecurityException e) {
+                            Toast.makeText(this, "Failed to save image permissions.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     Toast.makeText(this, "No image selected.", Toast.LENGTH_SHORT).show();
@@ -69,6 +79,8 @@ public class AccountActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         filePickerLauncher.launch(intent);
     }
 
@@ -99,7 +111,13 @@ public class AccountActivity extends AppCompatActivity {
         String uri = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
                 .getString(PROFILE_IMAGE_URI_KEY, null);
         if (uri != null) {
-            profileImage.setImageURI(Uri.parse(uri));
+            try {
+                // Attempt to set the image URI
+                profileImage.setImageURI(Uri.parse(uri));
+            } catch (SecurityException e) {
+                Toast.makeText(this, "Permission denied for saved profile image. Please reselect.", Toast.LENGTH_SHORT).show();
+                saveProfileImageUri(null); // Clear invalid URI
+            }
         }
     }
 

@@ -39,6 +39,8 @@
             android:textStyle="bold"
             android:textColor="#000000" />
 
+        <!-- User Email -->
+
         <!-- Edit Profile Button -->
         <Button
             android:id="@+id/edit_profile_pic_button"
@@ -173,3 +175,4 @@
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
