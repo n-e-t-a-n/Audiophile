@@ -1,70 +1,71 @@
 package com.example.shopphile;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.bumptech.glide.Glide;
+
 import java.util.List;
-import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
-    private final List<Order> orderList;
 
-    public OrderAdapter(List<Order> orderList) {
-        this.orderList = orderList;
+    private final Context context;
+    private final List<OrderItem> orderItems;
+
+    public OrderAdapter(Context context, List<OrderItem> orderItems) {
+        this.context = context;
+        this.orderItems = orderItems;
     }
 
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.order_recyclerview, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.order_items, parent, false);
         return new OrderViewHolder(view);
     }
 
-    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orderList.get(position);
-        holder.orderNumber.setText("#" + String.format("%010d", order.getOrderId()));
+        OrderItem item = orderItems.get(position);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Date date = dateFormat.parse(order.getOrderDate());
-            SimpleDateFormat displayFormat = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
-            holder.orderDate.setText("Placed on " + displayFormat.format(date));
-        } catch (Exception e) {
-            holder.orderDate.setText("Placed on " + order.getOrderDate());
-        }
+        holder.productName.setText(item.getProductName());
+        holder.productSeller.setText(item.getBrandName());
+        holder.productPrice.setText(String.format("$%.2f", item.getProductPrice()));
+        holder.orderDate.setText(item.getOrderDate());
 
-        OrderItemAdapter orderItemAdapter = new OrderItemAdapter(order.getOrderItems());
-        holder.orderItemsRecyclerView.setAdapter(orderItemAdapter);
-        holder.orderItemsRecyclerView.setLayoutManager(new LinearLayoutManager(holder.orderItemsRecyclerView.getContext()));
+        Glide.with(context)
+                .clear(holder.productImage);
+        Glide.with(context)
+                .load(item.getProductImage())
+                .into(holder.productImage);
     }
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return orderItems.size();
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView orderNumber;
-        TextView orderDate;
-        RecyclerView orderItemsRecyclerView;
+        TextView productName, productSeller, productPrice, orderDate;
+        ImageView productImage;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderNumber = itemView.findViewById(R.id.order_number);
+
+            productName = itemView.findViewById(R.id.product_name);
+            productSeller = itemView.findViewById(R.id.product_seller);
+            productPrice = itemView.findViewById(R.id.product_price);
             orderDate = itemView.findViewById(R.id.order_date);
-            orderItemsRecyclerView = itemView.findViewById(R.id.order_items_recycler_view);
+            productImage = itemView.findViewById(R.id.product_image);
         }
     }
 }
