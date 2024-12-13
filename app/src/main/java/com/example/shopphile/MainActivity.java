@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView cartButton = findViewById(R.id.cart_button);
         cartButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
 
-        View.OnClickListener goToOrders = v -> startActivity(new Intent(MainActivity.this, OrdersActivity.class));
+        View.OnClickListener goToOrders = v -> startActivity(new Intent(MainActivity.this, OrderActivity.class));
 
         Button shopNowButton = findViewById(R.id.shopnow_button);
         shopNowButton.setOnClickListener(v -> openShopActivity());
