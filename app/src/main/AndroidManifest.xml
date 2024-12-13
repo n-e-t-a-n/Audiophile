@@ -17,5 +17,8 @@
         <activity android:name=".OrdersActivity" android:exported="true"/>
         <activity android:name=".LoginActivity" android:exported="true"/>
         <activity android:name=".RegisterActivity" android:exported="true"/>
+        <activity android:name=".ShopActivity" android:exported="true"/>
+        <activity android:name=".ProfileActivity" android:exported="true"/>
+        <activity android:name=".Item" android:exported="true"/>
     </application>
 </manifest>
