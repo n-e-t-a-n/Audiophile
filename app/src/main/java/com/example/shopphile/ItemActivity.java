@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Item extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
@@ -59,7 +59,7 @@ public class Item extends AppCompatActivity {
                 .load(productImage)
                 .into(productImageView);
 
-        backButton.setOnClickListener(v -> getOnBackPressedDispatcher());
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         orderButton.setOnClickListener(v -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -84,14 +84,15 @@ public class Item extends AppCompatActivity {
                 userDocRef.update("cart", FieldValue.arrayUnion(cartItem))
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(Item.this, "Item added to cart", Toast.LENGTH_SHORT).show();
+                                getOnBackPressedDispatcher().onBackPressed();
+                                Toast.makeText(ItemActivity.this, "Item added to cart", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Item.this, "Failed to add item to cart", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ItemActivity.this, "Failed to add item to cart", Toast.LENGTH_SHORT).show();
                             }
                         });
             } else {
-                Toast.makeText(Item.this, "Please log in to add items to your cart", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Item.this, LoginActivity.class));
+                Toast.makeText(ItemActivity.this, "Please log in to add items to your cart", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ItemActivity.this, LoginActivity.class));
             }
         });
     }
