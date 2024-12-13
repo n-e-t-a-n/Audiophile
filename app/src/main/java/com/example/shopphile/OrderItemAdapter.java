@@ -1,5 +1,6 @@
 package com.example.shopphile;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
-    private List<OrderItem> orderItemList;
+    private final List<OrderItem> orderItemList;
 
     public OrderItemAdapter(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
@@ -26,6 +27,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         return new OrderItemViewHolder(view);
     }
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         OrderItem orderItem = orderItemList.get(position);
@@ -34,7 +36,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         holder.brandName.setText(orderItem.getBrandName());
         holder.productPrice.setText(String.format("$%.2f", orderItem.getProductPrice()));
 
-        int imageResource = holder.itemView.getContext().getResources()
+        @SuppressLint("DiscouragedApi") int imageResource = holder.itemView.getContext().getResources()
                 .getIdentifier(orderItem.getProductImage(), "drawable", holder.itemView.getContext().getPackageName());
 
         if (imageResource != 0) {

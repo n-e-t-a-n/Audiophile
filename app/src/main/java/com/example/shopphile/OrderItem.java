@@ -1,20 +1,18 @@
 package com.example.shopphile;
 
 public class OrderItem {
-    private String productImage;
-    private String brandName;
-    private String productName;
-    private double productPrice;
-    private int quantity;
-    private int orderId;
+    private final String productImage;
+    private final String brandName;
+    private final String productName;
+    private final double productPrice;
+    private final int quantity;
 
-    public OrderItem(String productImage, String brandName, String productName, double productPrice, int quantity, int orderId) {
+    public OrderItem(String productImage, String brandName, String productName, double productPrice, int quantity) {
         this.productImage = productImage;
         this.brandName = brandName;
         this.productName = productName;
         this.productPrice = productPrice;
         this.quantity = quantity;
-        this.orderId = orderId;
     }
 
     public String getProductImage() {
@@ -35,9 +33,5 @@ public class OrderItem {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public int getOrderId() {
-        return orderId;
     }
 }

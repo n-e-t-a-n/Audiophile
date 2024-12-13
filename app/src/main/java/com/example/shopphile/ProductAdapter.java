@@ -1,5 +1,6 @@
 package com.example.shopphile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -18,9 +19,9 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<CartItem> productList;
-    private List<CartItem> filteredProductList;
-    private Context context;
+    private final List<CartItem> productList;
+    private final List<CartItem> filteredProductList;
+    private final Context context;
 
     public ProductAdapter(List<CartItem> productList, Context context) {
         this.productList = productList;
@@ -35,6 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         CartItem product = filteredProductList.get(position);
@@ -62,6 +64,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void filter(String query) {
         filteredProductList.clear();
 
@@ -84,7 +87,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return filteredProductList.size();
     }
 
-    static class ProductViewHolder extends RecyclerView.ViewHolder {
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, sellerTextView, priceTextView;
         ImageView productImageView;
 

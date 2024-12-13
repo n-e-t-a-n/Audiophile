@@ -1,5 +1,6 @@
 package com.example.shopphile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -20,26 +21,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Item extends AppCompatActivity {
-    private ImageView backButton, productImageView;
-    private TextView productNameTextView, productCategoryTextView,
-            productSellerTextView, productDescriptionTextView,
-            productPriceTextView, productStockTextView;
-    private Button orderButton;
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item);
 
-        backButton = findViewById(R.id.back_button);
-        productImageView = findViewById(R.id.product_image);
-        productNameTextView = findViewById(R.id.product_name);
-        productCategoryTextView = findViewById(R.id.product_category);
-        productSellerTextView = findViewById(R.id.product_seller);
-        productDescriptionTextView = findViewById(R.id.product_description);
-        productPriceTextView = findViewById(R.id.product_price);
-        productStockTextView = findViewById(R.id.product_stock);
-        orderButton = findViewById(R.id.order_button);
+        ImageView backButton = findViewById(R.id.back_button);
+        ImageView productImageView = findViewById(R.id.product_image);
+        TextView productNameTextView = findViewById(R.id.product_name);
+        TextView productCategoryTextView = findViewById(R.id.product_category);
+        TextView productSellerTextView = findViewById(R.id.product_seller);
+        TextView productDescriptionTextView = findViewById(R.id.product_description);
+        TextView productPriceTextView = findViewById(R.id.product_price);
+        TextView productStockTextView = findViewById(R.id.product_stock);
+        Button orderButton = findViewById(R.id.order_button);
 
         Intent intent = getIntent();
 
@@ -62,19 +59,19 @@ public class Item extends AppCompatActivity {
                 .load(productImage)
                 .into(productImageView);
 
-        backButton.setOnClickListener(v -> onBackPressed());
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher());
 
         orderButton.setOnClickListener(v -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
             if (currentUser != null) {
                 String email = currentUser.getEmail();
+                assert email != null;
 
-                // Get the reference to the user's document in Firestore
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                 DocumentReference userDocRef = db.collection("users").document(email);
 
-                // Create a map for the cart item
                 Map<String, Object> cartItem = new HashMap<>();
                 cartItem.put("productName", productName);
                 cartItem.put("productCategory", productCategory);
@@ -84,7 +81,6 @@ public class Item extends AppCompatActivity {
                 cartItem.put("productStock", productStock);
                 cartItem.put("productImage", productImage);
 
-                // Add the cart item to the cart array in the user's document
                 userDocRef.update("cart", FieldValue.arrayUnion(cartItem))
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {

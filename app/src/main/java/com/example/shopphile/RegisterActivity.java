@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,15 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
-    private Button registerButton;
-    private TextView loginLink;
     private FirebaseAuth mAuth;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText_Register);
         passwordEditText = findViewById(R.id.passwordEditText_Register);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText_Register);
-        registerButton = findViewById(R.id.registerButton);
-        loginLink = findViewById(R.id.loginLink);
+        Button registerButton = findViewById(R.id.registerButton);
+        TextView loginLink = findViewById(R.id.loginLink);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
+        registerButton.setOnClickListener(v -> registerUser());
         loginLink.setOnClickListener(v -> navigateToLogin());
     }
 
@@ -76,17 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                        String name = email.replace(".", " ").split("@")[0];
-                        StringBuilder capitalized = new StringBuilder();
-                        for (String word : name.split(" ")) {
-                            if (!word.isEmpty()) {
-                                capitalized.append(word.substring(0, 1).toUpperCase())
-                                        .append(word.substring(1).toLowerCase())
-                                        .append(" ");
-                            }
-                        }
-
-                        name = capitalized.toString().trim();
+                        String name = getName(email);
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -114,11 +96,28 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this, "Error creating user document", Toast.LENGTH_SHORT).show();
                                 });
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Registration failed: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
     }
+
+    @NonNull
+    private static String getName(String email) {
+        String name = email.replace(".", " ").split("@")[0];
+        StringBuilder capitalized = new StringBuilder();
+        for (String word : name.split(" ")) {
+            if (!word.isEmpty()) {
+                capitalized.append(word.substring(0, 1).toUpperCase())
+                        .append(word.substring(1).toLowerCase())
+                        .append(" ");
+            }
+        }
+
+        name = capitalized.toString().trim();
+        return name;
+    }
+
     private void navigateToLogin() {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);

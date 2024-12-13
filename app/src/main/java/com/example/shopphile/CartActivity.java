@@ -1,5 +1,6 @@
 package com.example.shopphile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnCartUpdateListener {
     private RecyclerView recyclerViewCart;
@@ -34,11 +36,9 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart);
 
-        // Initialize Firebase
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize views
         recyclerViewCart = findViewById(R.id.recycler_view_cart);
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
 
@@ -47,14 +47,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         shippingAmount = findViewById(R.id.shipping_amount);
         payableAmount = findViewById(R.id.payable_amount);
 
-        // Get cart data from Firestore
         loadCartItems();
 
-        // BACK BUTTON
         ImageView backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> finish());
 
-        // CHECKOUT BUTTON
         Button checkoutButton = findViewById(R.id.checkout_button);
         checkoutButton.setOnClickListener(v -> {
             checkout();
@@ -69,75 +66,74 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
     }
 
     private void loadCartItems() {
-        // Get the current user's email
-        String userEmail = mAuth.getCurrentUser().getEmail();
+        String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
 
         if (userEmail != null) {
             DocumentReference userDocRef = db.collection("users").document(userEmail);
 
-            // Fetch the cart array from the user's document
             userDocRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
-                        List<?> cartItemsList = (List<?>) document.get("cart");
-
-                        if (cartItemsList != null) {
-                            // Convert HashMap to CartItem objects
-                            cartItems = new ArrayList<>();
-                            for (Object obj : cartItemsList) {
-                                if (obj instanceof HashMap) {
-                                    HashMap<String, Object> itemMap = (HashMap<String, Object>) obj;
-
-                                    // Extract fields with null checks and default values
-                                    String productName = (String) itemMap.getOrDefault("productName", "Unknown Product");
-                                    String productCategory = (String) itemMap.getOrDefault("productCategory", "Unknown Category");
-                                    String productSeller = (String) itemMap.getOrDefault("productSeller", "Unknown Seller");
-                                    String productDescription = (String) itemMap.getOrDefault("productDescription", "No description");
-                                    double productPrice = itemMap.containsKey("productPrice") && itemMap.get("productPrice") != null
-                                            ? ((Number) itemMap.get("productPrice")).doubleValue()
-                                            : 0.0;
-                                    int productStock = itemMap.containsKey("productStock") && itemMap.get("productStock") != null
-                                            ? ((Number) itemMap.get("productStock")).intValue()
-                                            : 0;
-                                    String productImage = (String) itemMap.getOrDefault("productImage", "");
-                                    int quantity = itemMap.containsKey("quantity") && itemMap.get("quantity") != null
-                                            ? ((Number) itemMap.get("quantity")).intValue()
-                                            : 1;
-
-                                    // Create the CartItem object
-                                    CartItem cartItem = new CartItem(
-                                            productName,
-                                            productSeller,
-                                            productPrice,
-                                            productStock,
-                                            productImage,
-                                            productDescription,
-                                            productCategory
-                                    );
-                                    cartItems.add(cartItem);
-                                }
-                            }
-
-                            // Set up the adapter
-                            cartAdapter = new CartAdapter(cartItems, this, this);
-                            recyclerViewCart.setAdapter(cartAdapter);
-                            calculateTotals();
-                        } else {
-                            Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(CartActivity.this, "No cart found", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(CartActivity.this, "Error getting cart items: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                if (!task.isSuccessful()) {
+                    Toast.makeText(CartActivity.this, "Error getting cart items: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                DocumentSnapshot document = task.getResult();
+
+                if (document == null || !document.exists()) {
+                    Toast.makeText(CartActivity.this, "No cart found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<?> cartItemsList = (List<?>) document.get("cart");
+
+                if (cartItemsList == null) {
+                    Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                cartItems = new ArrayList<>();
+                for (Object obj : cartItemsList) {
+                    if (obj instanceof HashMap) {
+                        @SuppressWarnings("unchecked")
+                        HashMap<String, Object> itemMap = (HashMap<String, Object>) obj;
+
+                        String productName = (String) itemMap.getOrDefault("productName", "Unknown Product");
+                        String productCategory = (String) itemMap.getOrDefault("productCategory", "Unknown Category");
+                        String productSeller = (String) itemMap.getOrDefault("productSeller", "Unknown Seller");
+                        String productDescription = (String) itemMap.getOrDefault("productDescription", "No description");
+                        double productPrice = itemMap.containsKey("productPrice") && itemMap.get("productPrice") != null
+                                ? ((Number) Objects.requireNonNull(itemMap.get("productPrice"))).doubleValue()
+                                : 0.0;
+                        int productStock = itemMap.containsKey("productStock") && itemMap.get("productStock") != null
+                                ? ((Number) Objects.requireNonNull(itemMap.get("productStock"))).intValue()
+                                : 0;
+                        String productImage = (String) itemMap.getOrDefault("productImage", "");
+
+                        CartItem cartItem = new CartItem(
+                                productName,
+                                productSeller,
+                                productPrice,
+                                productStock,
+                                productImage,
+                                productDescription,
+                                productCategory
+                        );
+
+                        cartItems.add(cartItem);
+                    }
+                }
+
+                cartAdapter = new CartAdapter(cartItems, this, this);
+                recyclerViewCart.setAdapter(cartAdapter);
+
+                calculateTotals();
             });
         }
     }
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private void checkout() {
         String orderDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
 
@@ -145,30 +141,29 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
             return;
         }
 
-        // Add the order to the user's orders array
         db.collection("users")
-                .document(mAuth.getCurrentUser().getEmail())
-                .update("orders", FieldValue.arrayUnion(orderDate)) // Add order to orders array
-                .addOnSuccessListener(aVoid -> {
-                    // Clear the cart after checkout
+                .document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()))
+                .update("orders", FieldValue.arrayUnion(orderDate))
+                .addOnSuccessListener(aVoid ->
                     db.collection("users")
                             .document(mAuth.getCurrentUser().getEmail())
-                            .update("cart", new ArrayList<>()) // Clear the cart array
+                            .update("cart", new ArrayList<>())
                             .addOnSuccessListener(aVoid1 -> {
                                 Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
                                 cartItems.clear();
                                 cartAdapter.notifyDataSetChanged();
                                 calculateTotals();
                             })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(CartActivity.this, "Error adding order: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                            .addOnFailureListener(e ->
+                                Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                            )
+                )
+                .addOnFailureListener(e ->
+                    Toast.makeText(CartActivity.this, "Error adding order: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
     }
 
+    @SuppressLint("DefaultLocale")
     private void calculateTotals() {
         double total = 0;
         for (CartItem item : cartItems) {

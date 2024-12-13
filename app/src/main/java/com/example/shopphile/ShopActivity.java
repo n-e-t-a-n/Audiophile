@@ -24,7 +24,7 @@ public class ShopActivity extends AppCompatActivity {
     private RecyclerView recyclerViewPopularProducts;
     private ProductAdapter adapter;
     private List<CartItem> popularProducts;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText searchBarShop;
 
     @Override
@@ -70,9 +70,7 @@ public class ShopActivity extends AppCompatActivity {
                         recyclerViewPopularProducts.setAdapter(adapter);
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.w("Firestore", "Error getting documents.", e);
-                });
+                .addOnFailureListener(e -> Log.w("Firestore", "Error getting documents.", e));
     }
 
     private void setupClickListeners() {

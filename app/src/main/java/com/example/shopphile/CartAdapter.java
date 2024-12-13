@@ -1,5 +1,6 @@
 package com.example.shopphile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private List<CartItem> cartItems;
-    private Context context;
-    private OnCartUpdateListener listener;
+    private final List<CartItem> cartItems;
+    private final Context context;
+    private final OnCartUpdateListener listener;
 
     public interface OnCartUpdateListener {
         void onCartUpdated();
@@ -41,34 +43,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return new CartViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
 
-        // Set text values
         holder.productName.setText(item.getProductName());
         holder.brandName.setText(item.getBrandName());
         holder.productPrice.setText(String.format("$%.2f", item.getProductPrice()));
         holder.cartItemQuantity.setText(String.valueOf(item.getQuantity()));
 
-        // Always reset delete button visibility
         holder.deleteItem.setVisibility(View.VISIBLE);
 
-        // Load the correct product image using Glide
         Glide.with(context)
-                .clear(holder.productImage); // Clear any previous image to avoid glitches
+                .clear(holder.productImage);
         Glide.with(context)
                 .load(item.getProductImage())
                 .into(holder.productImage);
 
-        // DELETE ITEM
         holder.deleteItem.setOnClickListener(v -> {
             CartItem itemToDelete = cartItems.get(position);
             cartItems.remove(position);
             notifyItemRemoved(position);
             listener.onCartUpdated();
 
-            // Update Firestore
             deleteItemFromFirestore(itemToDelete.getProductName());
         });
     }
@@ -78,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartItems.size();
     }
 
-    static class CartViewHolder extends RecyclerView.ViewHolder {
+    public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView productName, brandName, productPrice, cartItemQuantity;
         ImageView addQuantity, minusQuantity, deleteItem, productImage;
 
@@ -99,38 +97,37 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        String userEmail = auth.getCurrentUser().getEmail();
+        String userEmail = Objects.requireNonNull(auth.getCurrentUser()).getEmail();
         if (userEmail == null) return;
 
         DocumentReference userDocRef = db.collection("users").document(userEmail);
 
         userDocRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
+                @SuppressWarnings("unchecked")
                 List<HashMap<String, Object>> cartList = (List<HashMap<String, Object>>) documentSnapshot.get("cart");
 
                 if (cartList != null) {
-                    // Use an iterator to safely remove items
                     for (int i = 0; i < cartList.size(); i++) {
                         String name = (String) cartList.get(i).get("productName");
                         if (name != null && name.equals(productName)) {
                             cartList.remove(i);
-                            break; // Break after removing the item
+                            break;
                         }
                     }
 
-                    // Update the Firestore document with the modified cart list
                     userDocRef.update("cart", cartList)
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(context, "Item removed from cart", Toast.LENGTH_SHORT).show();
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(context, "Failed to update cart: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
+                            .addOnSuccessListener(aVoid ->
+                                Toast.makeText(context, "Item removed from cart", Toast.LENGTH_SHORT).show()
+                            )
+                            .addOnFailureListener(e ->
+                                Toast.makeText(context, "Failed to update cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                            );
                 }
             }
-        }).addOnFailureListener(e -> {
-            Toast.makeText(context, "Error fetching cart: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
+        }).addOnFailureListener(e ->
+            Toast.makeText(context, "Error fetching cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+        );
     }
 
 }

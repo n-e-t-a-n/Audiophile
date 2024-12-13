@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewPopularProducts;
     private ProductAdapter adapter;
     private List<CartItem> popularProducts;
-    private FirebaseAuth mAuth;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user == null) {
@@ -75,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         recyclerViewPopularProducts.setAdapter(adapter);
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.w("Firestore", "Error getting documents.", e);
-                });
+                .addOnFailureListener(e ->
+                    Log.w("Firestore", "Error getting documents.", e)
+                );
     }
 
     private void setupClickListeners() {
@@ -103,13 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView signOutButton = findViewById(R.id.signout);
         TextView signOutText = findViewById(R.id.signout_text);
-
-        View.OnClickListener signOutListener = v -> {
-            mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        };
 
         signOutButton.setOnClickListener(v -> openProfileActivity());
         signOutText.setOnClickListener(v -> openProfileActivity());

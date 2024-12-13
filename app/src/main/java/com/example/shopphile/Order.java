@@ -3,9 +3,9 @@ package com.example.shopphile;
 import java.util.List;
 
 public class Order {
-    private int orderId;
-    private String orderDate;
-    private List<OrderItem> orderItems;
+    private final int orderId;
+    private final String orderDate;
+    private final List<OrderItem> orderItems;
 
     public Order(int orderId, String orderDate, List<OrderItem> orderItems) {
         this.orderId = orderId;

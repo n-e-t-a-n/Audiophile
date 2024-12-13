@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ProfileActivity extends AppCompatActivity {
     private ImageView profileImage;
     private TextView userEmail;
-    private Button logoutButton;
     private FirebaseAuth auth;
 
     private SharedPreferences sharedPreferences;
@@ -48,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileImage = findViewById(R.id.profile_picture);
         userEmail = findViewById(R.id.user_email);
-        logoutButton = findViewById(R.id.logout_button);
+        Button logoutButton = findViewById(R.id.logout_button);
 
         auth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("user_profile", Context.MODE_PRIVATE);
@@ -63,9 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         ImageView backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backButton.setOnClickListener(v ->
+            getOnBackPressedDispatcher()
+        );
 
         profileImage.setOnClickListener(v -> openFilePicker());
     }
