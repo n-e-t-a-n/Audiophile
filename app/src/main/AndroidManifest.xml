@@ -16,7 +16,7 @@
 
         <activity android:name=".CartActivity" android:exported="true"/>
 
-        <activity android:name=".OrdersActivity" android:exported="true"/>
+        <activity android:name=".OrderActivity" android:exported="true"/>
 
         <activity android:name=".LoginActivity" android:exported="true"/>
 
@@ -26,6 +26,6 @@
 
         <activity android:name=".ProfileActivity" android:exported="true"/>
 
-        <activity android:name=".Item" android:exported="true"/>
+        <activity android:name=".ItemActivity" android:exported="true"/>
     </application>
 </manifest>
