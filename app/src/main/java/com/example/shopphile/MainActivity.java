@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -80,10 +81,12 @@ public class MainActivity extends AppCompatActivity {
                             String imageUrl = document.getString("imageUrl");
                             Long stock = document.getLong("stock");
                             Double price = document.getDouble("price");
+                            String description = document.getString("description");
+                            String category = document.getString("category");
 
                             // Add the data to the list (populating popularProducts)
-                            if (name != null && seller != null && imageUrl != null && stock != null && price != null) {
-                                popularProducts.add(new CartItem(name, seller, price, Math.toIntExact(stock), imageUrl));
+                            if (name != null && seller != null && imageUrl != null && stock != null && price != null && description != null && category != null) {
+                                popularProducts.add(new CartItem(name, seller, price, Math.toIntExact(stock), imageUrl, description, category));
                             }
                         }
 
@@ -106,6 +109,18 @@ public class MainActivity extends AppCompatActivity {
         // Orders button navigation (same logic for both buttons)
         View.OnClickListener goToOrders = v -> startActivity(new Intent(MainActivity.this, OrdersActivity.class));
 
+        // Shop now button navigation
+        Button shopNowButton = findViewById(R.id.shopnow_button);
+        shopNowButton.setOnClickListener(v -> openShopActivity());
+
+        // Shop button navigation
+        ImageView shopButton = findViewById(R.id.shop_button);
+        shopButton.setOnClickListener(v -> openShopActivity());
+
+        // Shop text navigation
+        TextView shopText = findViewById(R.id.shop_text);
+        shopText.setOnClickListener(v -> openShopActivity());
+
         ImageView ordersButton = findViewById(R.id.orders_button);
         ordersButton.setOnClickListener(goToOrders);
 
@@ -124,7 +139,17 @@ public class MainActivity extends AppCompatActivity {
             finish();  // Close the current activity
         };
 
-        signOutButton.setOnClickListener(signOutListener);
-        signOutText.setOnClickListener(signOutListener);
+        signOutButton.setOnClickListener(v -> openProfileActivity());
+        signOutText.setOnClickListener(v -> openProfileActivity());
+    }
+
+    private void openShopActivity() {
+        Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+        startActivity(intent);
+    }
+
+    private void openProfileActivity() {
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 }
