@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,14 +12,15 @@
         android:layout_height="170dp"
         android:background="@drawable/rounded_full"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="15dp"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_transparent"
-            android:clipToOutline="true"
+            android:contentDescription="@string/card_image"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/flint_v2" />
 
@@ -37,7 +39,7 @@
                 android:id="@+id/brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Strymon"
+                android:text=""
                 android:textColor="@color/altText"
                 android:textSize="12sp"
                 android:textStyle="normal|bold" />
@@ -47,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Flint V2"
+                android:text=""
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -56,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="$349.00"
+                android:text=""
                 android:textColor="@color/yellow"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -74,6 +76,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
+                android:contentDescription="@string/delete"
                 android:visibility="visible"
                 app:srcCompat="@drawable/delete_24px" />
 
@@ -89,6 +92,7 @@
                     android:id="@+id/minus_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/minus"
                     app:srcCompat="@drawable/do_not_disturb_on_24px" />
 
                 <TextView
@@ -98,13 +102,14 @@
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:gravity="center"
-                    android:text="1" />
+                    android:text="@string/_1" />
 
                 <ImageView
                     android:id="@+id/add_quantity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add"
                     app:srcCompat="@drawable/add_circle_24px" />
 
             </LinearLayout>

@@ -43,9 +43,10 @@
                     android:id="@+id/back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="@string/back_button"
                     android:cropToPadding="false"
                     android:padding="0dp"
                     android:scaleX="1.8"
@@ -61,11 +62,12 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:clipToPadding="false"
                         android:orientation="vertical"
-                        android:padding="0dp">
+                        android:padding="0dp"
+                        tools:ignore="NestedWeights">
 
                         <TextView
                             android:id="@+id/textView"
@@ -73,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:includeFontPadding="true"
-                            android:text="Deliver to"
+                            android:text="@string/deliver_to"
                             android:textColor="@color/altText"
                             android:textSize="14sp" />
 
@@ -83,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:includeFontPadding="true"
-                            android:text="Home"
+                            android:text="@string/home"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -94,7 +96,8 @@
                         android:id="@+id/imageView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="140dp"
+                        android:layout_marginEnd="140dp"
+                        android:contentDescription="@string/card_image"
                         android:scaleType="centerInside"
                         android:src="@drawable/arrow_drop_down_circle_24px" />
 
@@ -102,8 +105,9 @@
                         android:id="@+id/imageView7"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
+                        android:contentDescription="@string/new_arrival"
                         android:scaleType="centerInside"
                         android:src="@drawable/notifications_24px" />
 
@@ -111,8 +115,9 @@
                         android:id="@+id/cart_button"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="1"
+                        android:contentDescription="@string/cart"
                         android:scaleType="centerInside"
                         android:src="@drawable/shopping_cart_24px" />
 
@@ -137,13 +142,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/search_background"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:contentDescription="@string/search_icon"
                         android:cropToPadding="true"
                         android:padding="0dp"
                         android:scaleType="centerInside"
@@ -153,20 +160,23 @@
                         android:id="@+id/editTextText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:autofillHints=""
                         android:background="@null"
                         android:ems="18"
                         android:fontFamily="sans-serif-light"
                         android:inputType="text"
-                        android:text="Search"
+                        android:text="@string/search"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="LabelFor" />
 
                     <ImageView
                         android:id="@+id/imageView3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:contentDescription="@string/filter"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/tune_24px" />
                 </LinearLayout>
@@ -186,7 +196,7 @@
                 android:scrollbars="none">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -207,7 +217,8 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        style="?android:attr/borderlessButtonStyle" />
+                        style="?android:attr/borderlessButtonStyle"
+                        tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         style="?android:attr/borderlessButtonStyle"
@@ -226,7 +237,8 @@
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         style="?android:attr/borderlessButtonStyle"
@@ -245,7 +257,8 @@
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         style="?android:attr/borderlessButtonStyle"
@@ -260,7 +273,7 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Chorus"
+                        android:text="@string/chorus"
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
@@ -279,7 +292,7 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Compressor"
+                        android:text="@string/compressor"
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
@@ -324,7 +337,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:includeFontPadding="false"
                             android:padding="0dp"
-                            android:text="New\nArrival"
+                            android:text="@string/new_narrival"
                             android:textColor="@color/yellow"
                             android:textSize="30sp"
                             android:textStyle="bold" />
@@ -334,7 +347,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:text="With Free Shipping"
+                            android:text="@string/with_free_shipping"
                             android:textColor="@color/darkYellow"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -343,7 +356,7 @@
                             style="?android:attr/borderlessButtonStyle"
                             android:id="@+id/shopnow_button"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
@@ -352,11 +365,12 @@
                             android:fontFamily="sans-serif-medium"
                             android:paddingLeft="0dp"
                             android:paddingRight="0dp"
-                            android:text="Shop Now"
+                            android:text="@string/shop_now"
                             android:textAllCaps="false"
                             android:textColor="@color/darkYellow"
                             android:textSize="12sp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            tools:ignore="NestedWeights" />
 
                     </LinearLayout>
 
@@ -365,8 +379,10 @@
                         android:layout_width="127dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:contentDescription="@string/todo"
                         android:rotation="350"
-                        app:srcCompat="@drawable/nano_cortex" />
+                        app:srcCompat="@drawable/nano_cortex"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
 
@@ -385,7 +401,7 @@
                         android:layout_margin="5dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="sans-serif-light"
-                        android:text="Popular products"
+                        android:text="@string/popular_products"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -414,6 +430,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
+                android:baselineAligned="false"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
@@ -436,9 +453,11 @@
                         android:background="@null"
                         android:backgroundTint="@null"
                         android:backgroundTintMode="@null"
+                        android:contentDescription="TODO"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/house_24px"
-                        app:tint="@color/yellow" />
+                        app:tint="@color/yellow"
+                        tools:ignore="ContentDescription,HardcodedText" />
 
                     <TextView
                         android:id="@+id/signout_text"
@@ -450,7 +469,8 @@
                         android:text="Home"
                         android:textSize="12sp"
                         android:textStyle="normal"
-                        android:textColor="@color/yellow" />
+                        android:textColor="@color/yellow"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -466,7 +486,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/storefront_24px" />
+                        app:srcCompat="@drawable/storefront_24px"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/shop_text"
@@ -477,7 +498,8 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="Shop"
                         android:textSize="12sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        tools:ignore="HardcodedText" />
 
                 </LinearLayout>
 
@@ -495,7 +517,7 @@
                         android:background="@null"
                         android:backgroundTint="@null"
                         android:backgroundTintMode="@null"
-                        android:scaleType="centerInside"
+                        android:importantForAccessibility="no" android:scaleType="centerInside"
                         app:srcCompat="@drawable/shopping_bag_24px" />
 
                     <TextView
@@ -507,7 +529,8 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="Orders"
                         android:textSize="12sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -522,7 +545,7 @@
                         android:id="@+id/signout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="centerInside"
+                        android:importantForAccessibility="no" android:scaleType="centerInside"
                         app:srcCompat="@drawable/person_24px" />
 
                     <TextView
@@ -535,7 +558,7 @@
                         android:text="Profile"
                         android:textSize="12sp"
                         android:textStyle="normal"
-                        tools:ignore="DuplicateIds" />
+                        tools:ignore="DuplicateIds,HardcodedText" />
                 </LinearLayout>
 
             </LinearLayout>

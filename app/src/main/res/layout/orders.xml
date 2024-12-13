@@ -47,12 +47,13 @@
                     android:rotationY="180"
                     android:scaleX="1"
                     android:scaleY="1"
-                    android:src="@drawable/arrow_circle_right_24px" />
+                    android:src="@drawable/arrow_circle_right_24px"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -65,7 +66,8 @@
                         android:text="Orders"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                 </LinearLayout>
 
@@ -88,7 +90,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/search_background"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -98,7 +101,8 @@
                         android:cropToPadding="true"
                         android:padding="0dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/search_24px" />
+                        app:srcCompat="@drawable/search_24px"
+                        tools:ignore="ContentDescription" />
 
                     <EditText
                         android:id="@+id/editTextText"
@@ -111,7 +115,8 @@
                         android:text="Search"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="Autofill,HardcodedText,LabelFor,TextContrastCheck,TouchTargetSizeCheck" />
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -119,7 +124,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/tune_24px" />
+                        app:srcCompat="@drawable/tune_24px"
+                        tools:ignore="ContentDescription" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -42,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="@string/back_button"
                     android:cropToPadding="false"
                     android:padding="0dp"
                     android:rotationY="180"
@@ -52,7 +53,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -62,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:includeFontPadding="true"
-                        android:text="Cart"
+                        android:text="@string/cart"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -111,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_rounded"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                tools:ignore="UselessParent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/tableRow"
@@ -124,17 +126,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:paddingRight="5dp"
-                        android:text="Total"
+                        android:paddingEnd="5dp"
+                        android:text="@string/total"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/total_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="0"
+                        android:text="@string/_0"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/total_count5"
                         app:layout_constraintTop_toTopOf="@+id/textView_total" />
@@ -144,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="("
+                        android:text="@string/leftParenthesis"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView_total"
                         app:layout_constraintTop_toTopOf="@+id/textView_total" />
@@ -154,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text=")"
+                        android:text="@string/rightParenthesis"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/total_count"
                         app:layout_constraintTop_toTopOf="@+id/textView_total" />
@@ -164,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="$0"
+                        android:text="@string/shipping"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -183,15 +186,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-medium"
-                        android:paddingRight="5dp"
-                        android:text="Shipping Rates" />
+                        android:paddingEnd="5dp"
+                        android:text="@string/shipping_rates"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/shipping_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="$0" />
+                        android:text="@string/amount" />
                 </TableRow>
 
                 <View
@@ -213,15 +217,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-medium"
-                        android:paddingRight="5dp"
-                        android:text="Amount Payable" />
+                        android:paddingEnd="5dp"
+                        android:text="@string/amount_payable"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/payable_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="$0" />
+                        android:text="@string/_0" />
                 </TableRow>
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -232,7 +237,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/selected_button"
                     android:fontFamily="sans-serif-light"
-                    android:text="Checkout"
+                    android:text="@string/checkout"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="20sp"

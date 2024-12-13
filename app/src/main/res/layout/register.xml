@@ -29,7 +29,8 @@
             android:text="ACCOUNT REGISTER"
             android:textColor="@color/blue"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView5"
@@ -41,19 +42,21 @@
             android:text="EMAIL"
             android:textColor="@color/altText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <EditText
             android:id="@+id/emailEditText_Register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_background"
             android:backgroundTint="@color/light_gray"
             android:padding="10dp"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            tools:ignore="Autofill,LabelFor,TextFields,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/textView8"
@@ -70,18 +73,19 @@
         <EditText
             android:id="@+id/passwordEditText_Register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_background"
             android:backgroundTint="@color/light_gray"
             android:inputType="textPassword"
             android:padding="10dp"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView09"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-thin"
@@ -95,21 +99,22 @@
         <EditText
             android:id="@+id/confirmPasswordEditText_Register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/edit_text_background"
             android:backgroundTint="@color/light_gray"
             android:inputType="textPassword"
             android:padding="10dp"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/registerButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/login_button"
@@ -119,7 +124,8 @@
             android:minHeight="0dp"
             android:padding="10dp"
             android:text="REGISTER"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,7 +137,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Already have an account? "
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/loginLink"
@@ -141,7 +148,8 @@
                 android:text="Login here"
                 android:textColor="@color/blue"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,InefficientWeight,TextContrastCheck" />
         </LinearLayout>
 
     </LinearLayout>

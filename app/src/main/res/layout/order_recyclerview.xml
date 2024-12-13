@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -24,7 +25,8 @@
             android:text="Order #1112220021"
             android:textColor="@color/altText"
             android:textSize="14sp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <TextView
             android:id="@+id/order_date"
@@ -35,7 +37,8 @@
             android:paddingBottom="15dp"
             android:text="Placed on Nov 09, 2022"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:id="@+id/view6"

@@ -29,7 +29,8 @@
             android:text="ACCOUNT LOGIN"
             android:textColor="@color/blue"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView5"
@@ -41,19 +42,22 @@
             android:text="EMAIL"
             android:textColor="@color/altText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_background"
             android:backgroundTint="@color/light_gray"
+            android:importantForAutofill="no"
             android:padding="10dp"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            tools:ignore="LabelFor,TextFields,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/textView8"
@@ -63,23 +67,26 @@
             android:letterSpacing="0.1"
             android:paddingBottom="3dp"
             android:text="PASSWORD"
-            android:textColor="@color/altText"
+            android:textColor="#8D6E63"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="0dp"
             android:background="@drawable/edit_text_background"
             android:backgroundTint="@color/light_gray"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
             android:padding="10dp"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,7 +107,8 @@
                 android:scaleY="0.9"
                 android:text="Remember Me"
                 android:textColor="@color/altText"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
             <View
                 android:layout_width="0dp"
@@ -113,16 +121,17 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:text="Forgot Password?"
-                android:textColor="@color/blue"
+                android:textColor="#1976D2"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/login_button"
@@ -132,7 +141,8 @@
             android:minHeight="0dp"
             android:padding="10dp"
             android:text="LOG IN"
-            android:textColor="@android:color/white" />
+            android:textColor="#ffffff"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck,VisualLintButtonSize,TextContrastCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,16 +154,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Not a member? "
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/signupLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Signup now"
-                android:textColor="@color/blue"
+                android:textColor="#1976D2"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

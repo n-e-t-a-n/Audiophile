@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -16,7 +17,8 @@
         android:rotationY="180"
         android:padding="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/product_image_card"
@@ -33,7 +35,8 @@
             android:id="@+id/product_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -48,7 +51,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_image_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/product_category"
@@ -61,7 +65,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/product_seller"
@@ -74,7 +79,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/product_description"
@@ -88,7 +94,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_seller"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/product_price"
@@ -102,7 +109,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/product_stock"
@@ -115,7 +123,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/order_button"
@@ -128,6 +137,7 @@
         app:layout_constraintTop_toBottomOf="@id/product_stock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

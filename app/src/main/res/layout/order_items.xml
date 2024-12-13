@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="145dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/product_image"
@@ -19,7 +21,8 @@
             android:background="@drawable/rounded_transparent"
             android:clipToOutline="true"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/flint_v2" />
+            app:srcCompat="@drawable/flint_v2"
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,7 +41,8 @@
                 android:text="Strymon"
                 android:textColor="@color/altText"
                 android:textSize="12sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
             <TextView
                 android:id="@+id/product_name"
@@ -47,7 +51,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Flint V2"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/product_price"
@@ -57,7 +62,8 @@
                 android:text="$349.00"
                 android:textColor="@color/yellow"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
         </LinearLayout>
 
@@ -75,7 +81,8 @@
                 android:paddingRight="8dp"
                 android:text="0x"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,InefficientWeight,RtlHardcoded,RtlSymmetry" />
         </LinearLayout>
 
     </LinearLayout>
