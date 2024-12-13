@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/product_name"
-                android:layout_width="wrap_content"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text=""
@@ -93,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/minus"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/do_not_disturb_on_24px" />
 
                 <TextView
@@ -102,6 +103,7 @@
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:text="@string/_1" />
 
                 <ImageView
@@ -109,6 +111,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     android:contentDescription="@string/add"
                     app:srcCompat="@drawable/add_circle_24px" />
 
