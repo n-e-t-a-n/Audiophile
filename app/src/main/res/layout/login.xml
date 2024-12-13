@@ -55,7 +55,8 @@
             android:backgroundTint="@color/light_gray"
             android:padding="10dp"
             android:text=""
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/textView8"
@@ -81,7 +82,8 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:text=""
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@android:color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
