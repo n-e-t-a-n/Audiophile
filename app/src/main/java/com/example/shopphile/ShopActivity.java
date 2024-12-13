@@ -77,7 +77,7 @@ public class ShopActivity extends AppCompatActivity {
         ImageView cartButton = findViewById(R.id.cart_button);
         cartButton.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, CartActivity.class)));
 
-        View.OnClickListener goToOrders = v -> startActivity(new Intent(ShopActivity.this, OrdersActivity.class));
+        View.OnClickListener goToOrders = v -> startActivity(new Intent(ShopActivity.this, OrderActivity.class));
 
         ImageView ordersButton = findViewById(R.id.orders_button);
         ordersButton.setOnClickListener(goToOrders);
