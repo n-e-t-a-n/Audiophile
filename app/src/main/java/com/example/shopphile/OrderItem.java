@@ -5,14 +5,14 @@ public class OrderItem {
     private final String brandName;
     private final String productName;
     private final double productPrice;
-    private final int quantity;
+    private final String orderDate;
 
-    public OrderItem(String productImage, String brandName, String productName, double productPrice, int quantity) {
+    public OrderItem(String productImage, String brandName, String productName, double productPrice, String orderDate) {
         this.productImage = productImage;
         this.brandName = brandName;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.quantity = quantity;
+        this.orderDate = orderDate;
     }
 
     public String getProductImage() {
@@ -31,7 +31,7 @@ public class OrderItem {
         return productPrice;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getOrderDate() {
+        return orderDate;
     }
 }
