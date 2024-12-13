@@ -53,9 +53,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         backButton.setOnClickListener(v -> finish());
 
         Button checkoutButton = findViewById(R.id.checkout_button);
+
         checkoutButton.setOnClickListener(v -> {
             checkout();
-            Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
+
+            Intent intent = new Intent(CartActivity.this, OrderActivity.class);
             startActivity(intent);
         });
     }
@@ -92,6 +94,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                 }
 
                 cartItems = new ArrayList<>();
+
                 for (Object obj : cartItemsList) {
                     if (obj instanceof HashMap) {
                         @SuppressWarnings("unchecked")
@@ -135,44 +138,60 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
 
     @SuppressLint("NotifyDataSetChanged")
     private void checkout() {
-        String orderDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
-
         if (cartItems.isEmpty()) {
             return;
         }
 
         db.collection("users")
                 .document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()))
-                .update("orders", FieldValue.arrayUnion(orderDate))
-                .addOnSuccessListener(aVoid ->
-                    db.collection("users")
-                            .document(mAuth.getCurrentUser().getEmail())
-                            .update("cart", new ArrayList<>())
-                            .addOnSuccessListener(aVoid1 -> {
-                                Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
-                                cartItems.clear();
-                                cartAdapter.notifyDataSetChanged();
-                                calculateTotals();
-                            })
-                            .addOnFailureListener(e ->
-                                Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                            )
-                )
-                .addOnFailureListener(e ->
-                    Toast.makeText(CartActivity.this, "Error adding order: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        @SuppressWarnings("unchecked")
+                        List<Object> cartItems = (List<Object>) documentSnapshot.get("cart");
+                        if (cartItems == null || cartItems.isEmpty()) {
+                            Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        db.collection("users")
+                                .document(mAuth.getCurrentUser().getEmail())
+                                .update("orders", FieldValue.arrayUnion(cartItems.toArray()))
+                                .addOnSuccessListener(aVoid -> {
+                                    db.collection("users")
+                                            .document(mAuth.getCurrentUser().getEmail())
+                                            .update("cart", new ArrayList<>())
+                                            .addOnSuccessListener(aVoid1 -> {
+                                                Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
+                                                cartItems.clear();
+                                                cartAdapter.notifyDataSetChanged();
+                                                calculateTotals();
+                                            })
+                                            .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error adding to orders: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    } else {
+                        Toast.makeText(CartActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error retrieving cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
     }
 
     @SuppressLint("DefaultLocale")
     private void calculateTotals() {
         double total = 0;
+
         for (CartItem item : cartItems) {
             total += item.getProductPrice();
         }
+
         totalCount.setText(String.valueOf(cartItems.size()));
         totalAmount.setText(String.format("$%.2f", total));
+
         double shipping = cartItems.isEmpty() ? 0 : 30;
         shippingAmount.setText(String.format("$%.2f", shipping));
+
         double payable = total + shipping;
         payableAmount.setText(String.format("$%.2f", payable));
     }
