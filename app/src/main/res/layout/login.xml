@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- ACCOUNT LOGIN title aligned to the left -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +31,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Username EditText without hint and with light gray background -->
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
@@ -45,7 +43,6 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <!-- Password EditText without hint and with light gray background -->
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
@@ -70,7 +67,6 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <!-- LinearLayout for Remember Me and Forgot Password with empty View for spacing -->
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -106,7 +102,6 @@
                 android:textColor="@color/altText"
                 android:textSize="13sp" />
 
-            <!-- Empty View to push "Forgot Password?" to the end -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -123,11 +118,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
-        <!-- Login Button -->
-
-
-        <!-- Sign up prompt -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             style="?android:attr/borderlessButtonStyle"
@@ -168,4 +158,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

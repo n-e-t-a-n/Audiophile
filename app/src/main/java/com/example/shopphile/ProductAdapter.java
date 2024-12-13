@@ -18,13 +18,13 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<CartItem> productList;  // Original product list
-    private List<CartItem> filteredProductList;  // List to hold filtered products
+    private List<CartItem> productList;
+    private List<CartItem> filteredProductList;
     private Context context;
 
     public ProductAdapter(List<CartItem> productList, Context context) {
         this.productList = productList;
-        this.filteredProductList = new ArrayList<>(productList);  // Start with all products
+        this.filteredProductList = new ArrayList<>(productList);
         this.context = context;
     }
 
@@ -62,28 +62,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         });
     }
 
-    // Filter method
     public void filter(String query) {
-        filteredProductList.clear();  // Clear the filtered list
+        filteredProductList.clear();
 
         if (query.isEmpty()) {
-            filteredProductList.addAll(productList);  // If the query is empty, restore the original list
+            filteredProductList.addAll(productList);
         } else {
-            query = query.toLowerCase();  // Make the query case-insensitive
+            query = query.toLowerCase();
             for (CartItem product : productList) {
                 if (product.getProductName().toLowerCase().contains(query)) {
-                    filteredProductList.add(product);  // Add matching products to the filtered list
+                    filteredProductList.add(product);
                 }
             }
         }
 
-        // Notify the adapter that the data has changed
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return filteredProductList.size();  // Return the size of the filtered list
+        return filteredProductList.size();
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {

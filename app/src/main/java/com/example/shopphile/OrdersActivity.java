@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 public class OrdersActivity extends AppCompatActivity {
 
     private ImageView backButton;
@@ -21,14 +19,9 @@ public class OrdersActivity extends AppCompatActivity {
         setContentView(R.layout.orders);
 
         backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> finish()); // Closes current activity
+        backButton.setOnClickListener(v -> finish());
 
         recyclerView = findViewById(R.id.recycler_view_order_history);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // RETRIEVE FROM DATABASE
-
-        // orderAdapter = new OrderAdapter();
-        // recyclerView.setAdapter(orderAdapter);
     }
 }
