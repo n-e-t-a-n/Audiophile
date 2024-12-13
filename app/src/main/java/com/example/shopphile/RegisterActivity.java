@@ -3,6 +3,7 @@ package com.example.shopphile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private TextView loginLink;
     private FirebaseAuth mAuth;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +75,50 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                        // Redirect to LoginActivity after successful registration
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish(); // Optional: Close RegisterActivity so the user can't go back to it
+                        String name = email.replace(".", " ").split("@")[0];
+                        StringBuilder capitalized = new StringBuilder();
+                        for (String word : name.split(" ")) {
+                            if (!word.isEmpty()) {
+                                capitalized.append(word.substring(0, 1).toUpperCase())
+                                        .append(word.substring(1).toLowerCase())
+                                        .append(" ");
+                            }
+                        }
+
+                        name = capitalized.toString().trim();
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        Map<String, Object> userData = new HashMap<>();
+                        userData.put("email", email);
+                        userData.put("name", name);
+                        userData.put("profile_picture_url", "");
+                        userData.put("created_at", FieldValue.serverTimestamp());
+
+                        userData.put("cart", new ArrayList<>());
+                        userData.put("orders", new ArrayList<>());
+
+                        db.collection("users")
+                                .document(email)
+                                .set(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d("Firestore", "User document created with email: " + email);
+
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("Firestore", "Error creating user document: " + e.getMessage());
+                                    Toast.makeText(RegisterActivity.this, "Error creating user document", Toast.LENGTH_SHORT).show();
+                                });
                     } else {
                         Toast.makeText(RegisterActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
     private void navigateToLogin() {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
