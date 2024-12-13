@@ -1,27 +1,30 @@
 package com.example.shopphile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<CartItem> productList;
+    private List<CartItem> productList;  // Original product list
+    private List<CartItem> filteredProductList;  // List to hold filtered products
     private Context context;
 
     public ProductAdapter(List<CartItem> productList, Context context) {
         this.productList = productList;
+        this.filteredProductList = new ArrayList<>(productList);  // Start with all products
         this.context = context;
     }
 
@@ -34,21 +37,53 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        CartItem product = productList.get(position);
+        CartItem product = filteredProductList.get(position);
 
         holder.nameTextView.setText(product.getProductName());
         holder.sellerTextView.setText(product.getBrandName());
         holder.priceTextView.setText(String.format("$%.2f", product.getProductPrice()));
 
-        // Load the image from URL using Glide
         Glide.with(context)
-                .load(product.getProductImage()) // URL of the image
+                .load(product.getProductImage())
                 .into(holder.productImageView);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, Item.class);
+
+            intent.putExtra("productName", product.getProductName());
+            intent.putExtra("productCategory", product.getCategory());
+            intent.putExtra("productSeller", product.getBrandName());
+            intent.putExtra("productDescription", product.getDescription());
+            intent.putExtra("productPrice", product.getProductPrice());
+            intent.putExtra("productStock", product.getQuantity());
+            intent.putExtra("productImage", product.getProductImage());
+
+            context.startActivity(intent);
+        });
+    }
+
+    // Filter method
+    public void filter(String query) {
+        filteredProductList.clear();  // Clear the filtered list
+
+        if (query.isEmpty()) {
+            filteredProductList.addAll(productList);  // If the query is empty, restore the original list
+        } else {
+            query = query.toLowerCase();  // Make the query case-insensitive
+            for (CartItem product : productList) {
+                if (product.getProductName().toLowerCase().contains(query)) {
+                    filteredProductList.add(product);  // Add matching products to the filtered list
+                }
+            }
+        }
+
+        // Notify the adapter that the data has changed
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return filteredProductList.size();  // Return the size of the filtered list
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
