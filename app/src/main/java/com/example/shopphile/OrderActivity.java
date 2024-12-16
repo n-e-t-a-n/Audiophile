@@ -8,14 +8,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class OrderActivity extends AppCompatActivity {
@@ -82,7 +86,19 @@ public class OrderActivity extends AppCompatActivity {
                                 ? ((Number) Objects.requireNonNull(itemMap.get("productPrice"))).doubleValue()
                                 : 0.0;
                         String productImage = (String) itemMap.getOrDefault("productImage", "");
-                        String orderDate = (String) itemMap.getOrDefault("orderDate", "N/A");
+
+                        String orderDate;
+                        if (itemMap.containsKey("orderDate") && itemMap.get("orderDate") instanceof Timestamp) {
+                            Timestamp timestamp = (Timestamp) itemMap.get("orderDate");
+
+                            assert timestamp != null;
+                            Date date = timestamp.toDate();
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            orderDate = sdf.format(date);
+                        } else {
+                            orderDate = "N/A";
+                        }
 
                         OrderItem orderItem = new OrderItem(
                                 productImage,
