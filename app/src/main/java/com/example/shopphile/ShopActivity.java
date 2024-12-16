@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -90,6 +91,12 @@ public class ShopActivity extends AppCompatActivity {
 
         TextView homeText = findViewById(R.id.home_text);
         homeText.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, MainActivity.class)));
+
+        ImageView signOutButton = findViewById(R.id.signout);
+        TextView signOutText = findViewById(R.id.signout_text);
+
+        signOutButton.setOnClickListener(v -> openProfileActivity());
+        signOutText.setOnClickListener(v -> openProfileActivity());
     }
 
     private void setupSearchBar() {
@@ -106,6 +113,10 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {}
         });
+    }
 
+    private void openProfileActivity() {
+        Intent intent = new Intent(ShopActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 }
