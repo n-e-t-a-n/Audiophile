@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         ImageView backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v ->
-            getOnBackPressedDispatcher()
+            getOnBackPressedDispatcher().onBackPressed()
         );
 
         profileImage.setOnClickListener(v -> openFilePicker());
