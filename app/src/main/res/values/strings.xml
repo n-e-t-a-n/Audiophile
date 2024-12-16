@@ -29,4 +29,7 @@
     <string name="shop_now">Shop Now</string>
     <string name="popular_products">Popular products</string>
     <string name="todo">TODO</string>
+    <string name="logout">Logout</string>
+    <string name="user_example_com">user@example.com</string>
+    <string name="profile_picture">Profile Picture</string>
 </resources>
