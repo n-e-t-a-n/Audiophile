@@ -3,6 +3,7 @@ package com.example.shopphile;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,8 +20,10 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnCartUpdateListener {
@@ -57,8 +60,10 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         checkoutButton.setOnClickListener(v -> {
             checkout();
 
-            Intent intent = new Intent(CartActivity.this, OrderActivity.class);
-            startActivity(intent);
+            new Handler().postDelayed(() -> {
+                Intent intent = new Intent(CartActivity.this, OrderActivity.class);
+                startActivity(intent);
+            }, 1000);
         });
     }
 
@@ -148,37 +153,47 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         @SuppressWarnings("unchecked")
-                        List<Object> cartItems = (List<Object>) documentSnapshot.get("cart");
+                        List<Map<String, Object>> cartItems = (List<Map<String, Object>>) documentSnapshot.get("cart");
+
                         if (cartItems == null || cartItems.isEmpty()) {
                             Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
+                        List<Map<String, Object>> updatedCartItems = new ArrayList<>();
+                        for (Map<String, Object> item : cartItems) {
+                            Map<String, Object> updatedItem = new HashMap<>(item);
+
+                            updatedItem.remove("productDescription");
+                            updatedItem.remove("productStock");
+
+                            updatedItem.put("orderDate", new Date());
+
+                            updatedCartItems.add(updatedItem);
+                        }
+
                         db.collection("users")
                                 .document(mAuth.getCurrentUser().getEmail())
-                                .update("orders", FieldValue.arrayUnion(cartItems.toArray()))
-                                .addOnSuccessListener(aVoid -> {
-                                    db.collection("users")
-                                            .document(mAuth.getCurrentUser().getEmail())
-                                            .update("cart", new ArrayList<>())
-                                            .addOnSuccessListener(aVoid1 -> {
-                                                Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
-                                                cartItems.clear();
-                                                cartAdapter.notifyDataSetChanged();
-                                                calculateTotals();
-                                            })
-                                            .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-                                })
+                                .update("orders", FieldValue.arrayUnion(updatedCartItems.toArray()))
+                                .addOnSuccessListener(aVoid -> db.collection("users")
+                                        .document(mAuth.getCurrentUser().getEmail())
+                                        .update("cart", new ArrayList<>())
+                                        .addOnSuccessListener(aVoid1 -> {
+                                            Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
+                                            cartItems.clear();
+                                            cartAdapter.notifyDataSetChanged();
+                                            calculateTotals();
+                                        })
+                                        .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()))
                                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error adding to orders: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                     } else {
                         Toast.makeText(CartActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error retrieving cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
     }
 
-    @SuppressLint("DefaultLocale")
+        @SuppressLint("DefaultLocale")
     private void calculateTotals() {
         double total = 0;
 
