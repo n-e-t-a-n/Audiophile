@@ -159,30 +159,44 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                         }
 
                         List<Map<String, Object>> updatedCartItems = new ArrayList<>();
+                        List<Map<String, Object>> reviewItems = new ArrayList<>();
+
                         for (Map<String, Object> item : cartItems) {
                             Map<String, Object> updatedItem = new HashMap<>(item);
-
                             updatedItem.remove("productDescription");
                             updatedItem.remove("productStock");
-
                             updatedItem.put("orderDate", new Date());
-
                             updatedCartItems.add(updatedItem);
+
+                            Map<String, Object> reviewItem = new HashMap<>();
+                            reviewItem.put("productName", item.get("productName"));
+                            reviewItem.put("rating", 0);
+                            reviewItem.put("review", "");
+                            reviewItems.add(reviewItem);
                         }
 
                         db.collection("users")
                                 .document(mAuth.getCurrentUser().getEmail())
                                 .update("orders", FieldValue.arrayUnion(updatedCartItems.toArray()))
-                                .addOnSuccessListener(aVoid -> db.collection("users")
-                                        .document(mAuth.getCurrentUser().getEmail())
-                                        .update("cart", new ArrayList<>())
-                                        .addOnSuccessListener(aVoid1 -> {
-                                            Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
-                                            cartItems.clear();
-                                            cartAdapter.notifyDataSetChanged();
-                                            calculateTotals();
-                                        })
-                                        .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show()))
+                                .addOnSuccessListener(aVoid -> {
+                                    for (Map<String, Object> review : reviewItems) {
+                                        db.collection("users")
+                                                .document(mAuth.getCurrentUser().getEmail())
+                                                .update("reviews", FieldValue.arrayUnion(review))
+                                                .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error adding review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                    }
+
+                                    db.collection("users")
+                                            .document(mAuth.getCurrentUser().getEmail())
+                                            .update("cart", new ArrayList<>())
+                                            .addOnSuccessListener(aVoid1 -> {
+                                                Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
+                                                cartItems.clear();
+                                                cartAdapter.notifyDataSetChanged();
+                                                calculateTotals();
+                                            })
+                                            .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error clearing cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                })
                                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error adding to orders: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                     } else {
                         Toast.makeText(CartActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
