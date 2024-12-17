@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,6 +112,9 @@ public class Home extends AppCompatActivity {
 
         ImageView signOutButton = findViewById(R.id.signout);
         TextView signOutText = findViewById(R.id.signout_text);
+
+        ImageButton profilePicture = findViewById(R.id.profile_picture);
+        profilePicture.setOnClickListener(v -> openProfileActivity());
 
         signOutButton.setOnClickListener(v -> openProfileActivity());
         signOutText.setOnClickListener(v -> openProfileActivity());
