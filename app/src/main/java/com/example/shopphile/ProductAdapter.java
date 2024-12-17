@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-
-    private final List<CartItem> productList;
+    private List<CartItem> productList;
     private final List<CartItem> filteredProductList;
     private final Context context;
 
@@ -99,4 +98,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productImageView = itemView.findViewById(R.id.product_image);
         }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateList(List<CartItem> newProducts) {
+        this.productList = new ArrayList<>(newProducts);
+
+        this.filteredProductList.clear();
+        this.filteredProductList.addAll(newProducts);
+
+        notifyDataSetChanged();
+    }
+
+
 }
