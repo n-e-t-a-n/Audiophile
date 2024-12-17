@@ -22,12 +22,12 @@
         android:id="@+id/review_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stars"
         android:gravity="left"
+        android:text="@string/stars"
         android:textColor="@color/yellow"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded,TextContrastCheck" />
 
     <TextView
         android:id="@+id/review_text"

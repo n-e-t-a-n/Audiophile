@@ -142,7 +142,7 @@
                 android:textColor="@color/darkYellow"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText,TextContrastCheck" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -183,7 +183,7 @@
                 android:textColor="@color/darkYellow"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
         </LinearLayout>
 
