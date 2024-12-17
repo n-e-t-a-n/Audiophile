@@ -36,4 +36,7 @@
     <string name="write_your_review">Write your review</string>
     <string name="write_your_review_here">Write your review here</string>
     <string name="this_cannot_be_changed">(this cannot be changed)</string>
+    <string name="stars">★★★★★</string>
+    <string name="great_product">Great product!</string>
+    <string name="by_user_example_com">By: user@example.com</string>
 </resources>
