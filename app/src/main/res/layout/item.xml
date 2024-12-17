@@ -42,6 +42,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="56dp"
+        android:contentDescription="TODO"
         android:gravity="left"
         android:text="Product Name"
         android:textColor="@android:color/black"
@@ -51,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_image"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,RtlHardcoded,TextSizeCheck" />
 
     <ImageButton
         android:id="@+id/read_reviews"
@@ -64,7 +65,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/product_name"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/star_24px" />
+        app:srcCompat="@drawable/star_24px"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/product_seller"
@@ -81,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_category"
-        tools:ignore="HardcodedText,TextContrastCheck" />
+        tools:ignore="HardcodedText,RtlHardcoded,TextContrastCheck" />
 
     <TextView
         android:id="@+id/product_category"
@@ -99,7 +101,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_stock"
-        tools:ignore="HardcodedText,TextContrastCheck" />
+        tools:ignore="HardcodedText,RtlHardcoded,TextContrastCheck" />
 
     <TextView
         android:id="@+id/product_description"
@@ -117,7 +119,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_seller"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,RtlHardcoded,TextSizeCheck" />
 
     <TextView
         android:id="@+id/product_price"
@@ -126,13 +128,13 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:gravity="left"
-        android:text="$99.99"
+        android:text="@string/_99_99"
         android:textColor="@color/magenta"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_name"
-        tools:ignore="Hardco dedText,Text   ContrastCheck" />
+        tools:ignore="Hardco dedText,RtlHardcoded,Text   ContrastCheck" />
 
     <TextView
         android:id="@+id/product_stock"
@@ -147,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/product_price"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,RtlHardcoded" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/order_button"

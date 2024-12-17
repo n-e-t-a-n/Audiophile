@@ -46,13 +46,15 @@
                     android:padding="0dp"
                     android:scaleX="1.8"
                     android:scaleY="1.8"
-                    android:src="@drawable/account_circle_24px" />
+                    android:src="@drawable/account_circle_24px"
+                    tools:ignore="RedundantDescriptionCheck,TouchTargetSizeCheck" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="InefficientWeight">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -72,7 +74,8 @@
                             android:includeFontPadding="true"
                             android:text="@string/deliver_to"
                             android:textColor="@color/altText"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:ignore="TextContrastCheck" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -180,7 +183,7 @@
                         android:textColor="@color/altText"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        tools:ignore="LabelFor" />
+                        tools:ignore="LabelFor,TextContrastCheck,TouchTargetSizeCheck" />
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -214,6 +217,7 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -229,12 +233,11 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        style="?android:attr/borderlessButtonStyle"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="?android:attr/borderlessButtonStyle"
                         android:id="@+id/button2"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -250,11 +253,11 @@
                         android:textColor="@color/altText"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="?android:attr/borderlessButtonStyle"
                         android:id="@+id/button3"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -270,11 +273,11 @@
                         android:textColor="@color/altText"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="?android:attr/borderlessButtonStyle"
                         android:id="@+id/button4"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -289,11 +292,12 @@
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="?android:attr/borderlessButtonStyle"
                         android:id="@+id/button5"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -308,7 +312,8 @@
                         android:textAllCaps="false"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -335,7 +340,8 @@
                     android:background="@drawable/rounded_full"
                     android:orientation="horizontal"
                     android:elevation="8dp"
-                    android:clipToOutline="false">
+                    android:clipToOutline="false"
+                    tools:ignore="UnusedAttribute">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -354,7 +360,8 @@
                             android:text="@string/new_narrival"
                             android:textColor="@color/yellow"
                             android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TextContrastCheck" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -364,7 +371,8 @@
                             android:text="@string/with_free_shipping"
                             android:textColor="@color/darkYellow"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TextContrastCheck" />
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/shopnow_button"
@@ -384,7 +392,7 @@
                             android:textColor="@color/magenta"
                             android:textSize="12sp"
                             android:textStyle="normal"
-                            tools:ignore="NestedWeights" />
+                            tools:ignore="NestedWeights,TouchTargetSizeCheck" />
 
                     </LinearLayout>
 

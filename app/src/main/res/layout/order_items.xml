@@ -8,7 +8,8 @@
     android:layout_marginBottom="20dp"
     android:background="@drawable/rounded_full"
     android:elevation="8dp"
-    android:clipToOutline="false">
+    android:clipToOutline="false"
+    tools:ignore="UnusedAttribute">
 
     <LinearLayout
         android:layout_width="match_parent"

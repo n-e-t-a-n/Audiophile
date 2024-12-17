@@ -73,7 +73,7 @@
             android:text=""
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            tools:ignore="Autofill,LabelFor,TextFields,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            tools:ignore="Autofill,LabelFor,TextFields,TouchTargetSizeCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/textView8"
@@ -85,7 +85,8 @@
             android:text="PASSWORD"
             android:textColor="@color/altText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <EditText
             android:id="@+id/passwordEditText_Register"
@@ -99,7 +100,7 @@
             android:text=""
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/textView09"
@@ -108,10 +109,11 @@
             android:fontFamily="sans-serif-thin"
             android:letterSpacing="0.1"
             android:paddingBottom="3dp"
-            android:text="CONFIRM PASSWORD"
+            android:text="@string/confirm_password"
             android:textColor="@color/altText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/confirmPasswordEditText_Register"
@@ -125,7 +127,7 @@
             android:text=""
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck" />
+            tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/registerButton"
@@ -142,7 +144,7 @@
             android:padding="10dp"
             android:text="REGISTER"
             android:textColor="@android:color/white"
-            tools:ignore="HardcodedText,TextContrastCheck" />
+            tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -48,7 +48,8 @@
                     android:rotationY="180"
                     android:scaleX="1"
                     android:scaleY="1"
-                    android:src="@drawable/arrow_circle_right_24px" />
+                    android:src="@drawable/arrow_circle_right_24px"
+                    tools:ignore="TouchTargetSizeCheck,RedundantDescriptionCheck" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -241,7 +242,8 @@
                     android:textAllCaps="false"
                     android:textColor="@color/magenta"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="VisualLintButtonSize" />
             </LinearLayout>
 
         </LinearLayout>

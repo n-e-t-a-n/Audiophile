@@ -39,4 +39,6 @@
     <string name="stars">★★★★★</string>
     <string name="great_product">Great product!</string>
     <string name="by_user_example_com">user@example.com</string>
+    <string name="_99_99">$99.99</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
 </resources>
