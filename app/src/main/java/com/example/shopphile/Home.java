@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Home extends AppCompatActivity {
     private RecyclerView recyclerViewPopularProducts;
     private ProductAdapter adapter;
     private List<CartItem> popularProducts;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user == null) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(Home.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupClickListeners() {
         ImageView cartButton = findViewById(R.id.cart_button);
-        cartButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
+        cartButton.setOnClickListener(v -> startActivity(new Intent(Home.this, CartActivity.class)));
 
-        View.OnClickListener goToOrders = v -> startActivity(new Intent(MainActivity.this, OrderActivity.class));
+        View.OnClickListener goToOrders = v -> startActivity(new Intent(Home.this, OrderActivity.class));
 
         Button shopNowButton = findViewById(R.id.shopnow_button);
         shopNowButton.setOnClickListener(v -> openShopActivity());
@@ -108,12 +108,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openShopActivity() {
-        Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+        Intent intent = new Intent(Home.this, ShopActivity.class);
         startActivity(intent);
     }
 
     private void openProfileActivity() {
-        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(Home.this, ProfileActivity.class);
         startActivity(intent);
     }
 }

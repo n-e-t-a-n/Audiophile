@@ -86,10 +86,10 @@ public class ShopActivity extends AppCompatActivity {
         ordersButtonText.setOnClickListener(goToOrders);
 
         ImageView homeButton = findViewById(R.id.home_button);
-        homeButton.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, MainActivity.class)));
+        homeButton.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, Home.class)));
 
         TextView homeText = findViewById(R.id.home_text);
-        homeText.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, MainActivity.class)));
+        homeText.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, Home.class)));
 
         ImageView signOutButton = findViewById(R.id.signout);
         TextView signOutText = findViewById(R.id.signout_text);
