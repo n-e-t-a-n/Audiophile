@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/** @noinspection ALL*/
 public class ItemActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -62,6 +63,12 @@ public class ItemActivity extends AppCompatActivity {
                 .into(productImageView);
 
         backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+        if (productStock < 1) {
+            orderButton.setEnabled(false);
+            orderButton.setBackgroundColor(getResources().getColor(R.color.light_black));
+            orderButton.setText("Out of Stock");
+        }
 
         orderButton.setOnClickListener(v -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
