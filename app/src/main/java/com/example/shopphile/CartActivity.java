@@ -139,8 +139,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         }
     }
 
-
-
     @SuppressLint("NotifyDataSetChanged")
     private void checkout() {
         if (cartItems.isEmpty()) {
@@ -193,7 +191,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error retrieving cart: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-        @SuppressLint("DefaultLocale")
+    @SuppressLint("DefaultLocale")
     private void calculateTotals() {
         double total = 0;
 
