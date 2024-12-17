@@ -145,11 +145,18 @@ public class ShopActivity extends AppCompatActivity {
         ImageView ordersButton = findViewById(R.id.orders_button);
         ordersButton.setOnClickListener(v -> startActivity(new Intent(ShopActivity.this, OrderActivity.class)));
 
+        ImageView homeButton = findViewById(R.id.home_button);
+        TextView homeText = findViewById(R.id.home_text);
+
+        homeButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        homeText.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
         ImageView signOutButton = findViewById(R.id.signout);
         TextView signOutText = findViewById(R.id.signout_text);
 
         signOutButton.setOnClickListener(v -> openProfileActivity());
         signOutText.setOnClickListener(v -> openProfileActivity());
+
 
         ImageButton profilePicture = findViewById(R.id.profile_picture);
         profilePicture.setOnClickListener(v -> openProfileActivity());
