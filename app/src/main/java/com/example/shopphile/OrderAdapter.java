@@ -19,10 +19,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private final Context context;
     private final List<OrderItem> orderItems;
+    private final OnItemClickListener onItemClickListener;
 
-    public OrderAdapter(Context context, List<OrderItem> orderItems) {
+    public interface OnItemClickListener {
+        void onItemClick(OrderItem item);
+    }
+
+    public OrderAdapter(Context context, List<OrderItem> orderItems, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.orderItems = orderItems;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -47,6 +53,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         Glide.with(context)
                 .load(item.getProductImage())
                 .into(holder.productImage);
+
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(item));
     }
 
     @Override
