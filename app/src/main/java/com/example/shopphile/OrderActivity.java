@@ -16,13 +16,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
     private ArrayList<OrderItem> orderItems;
@@ -112,9 +113,16 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 }
 
-                orderAdapter = new OrderAdapter(this, orderItems);
+                Collections.reverse(orderItems);
+
+                orderAdapter = new OrderAdapter(this, orderItems, this);
                 recyclerView.setAdapter(orderAdapter);
             });
         }
+    }
+
+    @Override
+    public void onItemClick(OrderItem item) {
+        Toast.makeText(this, item.getProductName(), Toast.LENGTH_SHORT).show();
     }
 }
