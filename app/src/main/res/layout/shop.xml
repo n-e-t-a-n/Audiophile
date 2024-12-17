@@ -199,7 +199,7 @@
             android:paddingLeft="15dp"
             android:paddingEnd="15dp"
             android:paddingRight="15dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="10dp"
             android:scrollbars="none">
 
             <LinearLayout
@@ -240,12 +240,12 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="Overdrive"
+                    android:text="@string/guitar"
                     android:textAllCaps="false"
                     android:textColor="@color/altText"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button3"
@@ -260,12 +260,12 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="Reverb"
+                    android:text="@string/bass"
                     android:textAllCaps="false"
                     android:textColor="@color/altText"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button4"
@@ -280,7 +280,7 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@string/chorus"
+                    android:text="@string/keyboard"
                     android:textAllCaps="false"
                     android:textColor="@color/altText"
                     android:textSize="12sp"
@@ -300,7 +300,7 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@string/compressor"
+                    android:text="@string/drums"
                     android:textAllCaps="false"
                     android:textColor="@color/altText"
                     android:textSize="12sp"
