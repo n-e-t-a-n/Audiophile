@@ -40,6 +40,10 @@ public class ShopActivity extends AppCompatActivity {
         setupClickListeners();
         setupSearchBar();
         setupCategoryButtons();
+
+        if (getIntent().getBooleanExtra("focusSearch", false)) {
+            searchBarShop.requestFocus();
+        }
     }
 
     private void initializeViews() {

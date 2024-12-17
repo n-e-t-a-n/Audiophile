@@ -171,7 +171,7 @@
                         app:srcCompat="@drawable/search_24px" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/searchBarHome"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:autofillHints=""
@@ -179,7 +179,7 @@
                         android:ems="18"
                         android:fontFamily="sans-serif-light"
                         android:inputType="text"
-                        android:text="@string/search"
+                        android:hint="@string/search"
                         android:textColor="@color/altText"
                         android:textSize="12sp"
                         android:textStyle="bold"

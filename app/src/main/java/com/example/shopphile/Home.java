@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,14 @@ public class Home extends AppCompatActivity {
 
         setContentView(R.layout.home);
         recyclerViewPopularProducts = findViewById(R.id.recycler_view_popular_products);
+
+        EditText searchBarHome = findViewById(R.id.searchBarHome);
+
+        searchBarHome.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, ShopActivity.class);
+            intent.putExtra("focusSearch", true);
+            startActivity(intent);
+        });
 
         setupRecyclerView();
         setupClickListeners();
