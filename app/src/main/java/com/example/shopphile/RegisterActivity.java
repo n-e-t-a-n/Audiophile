@@ -80,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         userData.put("cart", new ArrayList<>());
                         userData.put("orders", new ArrayList<>());
+                        userData.put("reviews", new ArrayList<>());
 
                         db.collection("users")
                                 .document(email)
