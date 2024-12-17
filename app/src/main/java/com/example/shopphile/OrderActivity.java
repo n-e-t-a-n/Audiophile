@@ -1,7 +1,10 @@
 package com.example.shopphile;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnItemClickListener {
@@ -123,6 +127,151 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnI
 
     @Override
     public void onItemClick(OrderItem item) {
-        Toast.makeText(this, item.getProductName(), Toast.LENGTH_SHORT).show();
+        android.view.LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.rating_dialog, null);
+
+        RatingBar ratingBar = dialogView.findViewById(R.id.rating_bar);
+        EditText reviewEditText = dialogView.findViewById(R.id.edit_text_review);
+
+        String currentUserEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        assert currentUserEmail != null;
+
+        DocumentReference userRef = db.collection("users").document(currentUserEmail);
+
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                @SuppressWarnings("unchecked")
+                List<Map<String, Object>> reviews = (List<Map<String, Object>>) documentSnapshot.get("reviews");
+
+                if (reviews != null) {
+                    for (Map<String, Object> review : reviews) {
+                        if (Objects.equals(review.get("productName"), item.getProductName())) {
+                            float existingRating = review.containsKey("rating") ? Float.parseFloat(String.valueOf(review.get("rating"))) : 0;
+                            String existingReview = review.containsKey("review") ? (String) review.get("review") : "";
+
+                            if (existingRating > 0) {
+                                ratingBar.setRating(existingRating);
+                                ratingBar.setIsIndicator(true);
+                            }
+
+                            assert existingReview != null;
+                            if (!existingReview.isEmpty()) {
+                                reviewEditText.setText(existingReview);
+                                reviewEditText.setEnabled(true);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Review " + item.getProductName());
+        builder.setView(dialogView);
+
+        builder.setPositiveButton("Submit", (dialog, which) -> {
+            float rating = ratingBar.getRating();
+            String reviewText = reviewEditText.getText().toString().trim();
+
+            if (rating == 0 || reviewText.isEmpty()) {
+                Toast.makeText(this, "Please provide a rating and review.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            updateUserReview(item, rating, reviewText);
+            updateItemReview(item, rating, reviewText);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.create().show();
+    }
+
+    private void updateUserReview(OrderItem item, float rating, String reviewText) {
+        String currentUserEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        assert currentUserEmail != null;
+
+        db.collection("users")
+                .document(currentUserEmail)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        @SuppressWarnings("unchecked")
+                        List<Map<String, Object>> reviews = (List<Map<String, Object>>) documentSnapshot.get("reviews");
+                        boolean updated = false;
+
+                        if (reviews != null) {
+                            for (Map<String, Object> review : reviews) {
+                                if (Objects.equals(review.get("productName"), item.getProductName())) {
+                                    review.put("rating", (int) rating);
+                                    review.put("review", reviewText);
+                                    updated = true;
+                                    break;
+                                }
+                            }
+                        } else {
+                            reviews = new ArrayList<>();
+                        }
+
+                        if (!updated) {
+                            Map<String, Object> newReview = new HashMap<>();
+                            newReview.put("productName", item.getProductName());
+                            newReview.put("rating", (int) rating);
+                            newReview.put("review", reviewText);
+                            reviews.add(newReview);
+                        }
+
+                        db.collection("users")
+                                .document(currentUserEmail)
+                                .update("reviews", reviews)
+                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "User review updated!", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(this, "Failed to update user review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+                });
+    }
+
+    private void updateItemReview(OrderItem item, float rating, String reviewText) {
+        db.collection("items")
+                .whereEqualTo("name", item.getProductName())
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                        DocumentReference itemRef = document.getReference();
+
+                        Long ratingAmount = document.contains("ratingAmount")
+                                ? document.getLong("ratingAmount")
+                                : Long.valueOf(0L);
+
+                        Long totalRating = document.contains("totalRating")
+                                ? document.getLong("totalRating")
+                                : Long.valueOf(0L);
+
+                        ratingAmount = (ratingAmount != null) ? ratingAmount + 1 : 1;
+                        totalRating = (totalRating != null) ? totalRating + (int) rating : (int) rating;
+
+                        @SuppressWarnings("unchecked")
+                        List<Map<String, Object>> reviews = (List<Map<String, Object>>) document.get("reviews");
+                        if (reviews == null) {
+                            reviews = new ArrayList<>();
+                        }
+                        Map<String, Object> newReview = new HashMap<>();
+                        newReview.put("rating", (int) rating);
+                        newReview.put("review", reviewText);
+                        reviews.add(newReview);
+
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("ratingAmount", ratingAmount);
+                        updates.put("totalRating", totalRating);
+                        updates.put("reviews", reviews);
+
+                        itemRef.update(updates)
+                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Item review updated!", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(this, "Failed to update item: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    } else {
+                        Toast.makeText(this, "Item not found in the database.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error querying item: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }
