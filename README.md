@@ -77,7 +77,7 @@
 ## About The Project
 
 About The Project
-Audiophile is a robust and user-friendly e-commerce Android application that allows users to:
+Audiophile is a fully functional Android-based e-commerce application that enables users to browse products relaetd to instruments and music, manage their shopping cart, view orders, and leave product reviews. The app is structured around modern Android development principles using Firebase for backend services like authentication and Firestore for data storage. The following features are available to users:
 
 - Browse products based on categories.
 - Add products to the shopping cart and manage cart items.
@@ -130,7 +130,92 @@ Open any product page to submit reviews.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Features
 
+1. **User Authentication**  
+   - Secure login and registration using **Firebase Authentication**.  
+   - Validation of input fields to ensure proper credentials.
+
+2. **Product Listing and Filtering**  
+   - View products dynamically fetched from **Firestore** and displayed in a **RecyclerView**.  
+   - **Category Filtering**: Filter products by categories such as **Guitar**, **Bass**, **Keyboard**, and **Drums**.  
+   - **Search Functionality**: Real-time search to filter product listings based on user input.
+
+3. **Product Details**  
+   - Tap on any product to view:  
+     - Product image, name, description, price, and stock availability.  
+   - Option to **add the product to the cart**.
+
+4. **Shopping Cart**  
+   - Add and manage items in the shopping cart:  
+     - Increase or decrease item quantities.  
+     - Delete items.  
+   - View the **total price** and proceed to checkout.
+
+5. **Order Management**  
+   - Place orders and view the order history in a structured list format.  
+   - Each order shows product details, price, and the date of purchase.
+
+6. **Product Reviews**  
+   - Users can submit:  
+     - **Star Ratings** using a rating bar.  
+     - Written reviews for each product.  
+   - Reviews are displayed in a **RecyclerView** on the product details page.
+
+7. **User Profile**  
+   - View and update user details like email.  
+   - Change the profile picture using file selection.  
+   - Secure **logout functionality**.
+
+8. **Navigation**  
+   - A bottom navigation bar provides quick access to:  
+     - **Home**: View featured products.  
+     - **Shop**: Browse and filter products.  
+     - **Orders**: Access order history.  
+     - **Profile**: Manage user settings.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Technical Highlights
+
+1. **Firebase Integration**  
+   - **Firebase Authentication**: For secure user login, registration, and session management.  
+   - **Firebase Firestore**: Real-time database for storing products, user orders, reviews, and cart data.
+
+2. **RecyclerView for Lists**  
+   - Efficiently handles product listings, cart items, order history, and reviews with custom adapters for each.
+
+3. **Image Management**  
+   - **Glide Library** is used to efficiently load and display product and profile images.
+
+4. **Dynamic UI Design**  
+   - Built with a combination of:  
+     - **ConstraintLayout** for responsive and clean layouts.  
+     - **LinearLayout** and **RelativeLayout** for modular design.
+
+5. **Custom Drawables**  
+   - Implemented custom drawable resources for:  
+     - Rounded buttons, search bars, and backgrounds.  
+     - Improved UI consistency and aesthetics.
+
+6. **Input Validation**  
+   - Ensures fields such as email, password, and review content are correctly formatted before submission.
+
+7. **File Selection**  
+   - Integrated with file picker to allow users to change profile images using `ActivityResultLauncher`.
+
+8. **Bottom Navigation Bar**  
+   - Seamless navigation between major sections: Home, Shop, Orders, and Profile.
+
+9. **Modular Architecture**  
+   - Separate **activities** for key features:  
+     - **LoginActivity**, **CartActivity**, **OrderActivity**, **ReviewActivity**, etc.  
+   - Custom **adapters** for modular UI rendering.
+
+10. **Android Permissions**  
+    - Internet and network permissions configured in `AndroidManifest.xml`.
+      
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -143,8 +228,6 @@ Open any product page to submit reviews.
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -162,16 +245,6 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- LICENSE -->
-## License
-
-Distributed under the project_license. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
@@ -181,6 +254,12 @@ Project Link: [https://github.com/n-e-t-a-n/Audiophile](https://github.com/n-e-t
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- LICENSE -->
+## License
+
+Distributed under the project_license. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
