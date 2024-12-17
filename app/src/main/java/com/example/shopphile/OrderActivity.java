@@ -231,6 +231,8 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnI
     }
 
     private void updateItemReview(OrderItem item, float rating, String reviewText) {
+        String currentUserEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+
         db.collection("items")
                 .whereEqualTo("name", item.getProductName())
                 .get()
@@ -247,18 +249,37 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnI
                                 ? document.getLong("totalRating")
                                 : Long.valueOf(0L);
 
-                        ratingAmount = (ratingAmount != null) ? ratingAmount + 1 : 1;
-                        totalRating = (totalRating != null) ? totalRating + (int) rating : (int) rating;
-
                         @SuppressWarnings("unchecked")
                         List<Map<String, Object>> reviews = (List<Map<String, Object>>) document.get("reviews");
+
                         if (reviews == null) {
                             reviews = new ArrayList<>();
                         }
-                        Map<String, Object> newReview = new HashMap<>();
-                        newReview.put("rating", (int) rating);
-                        newReview.put("review", reviewText);
-                        reviews.add(newReview);
+
+                        boolean userAlreadyReviewed = false;
+
+                        for (Map<String, Object> review : reviews) {
+                            if (review.get("email") != null && Objects.equals(review.get("email"), currentUserEmail)) {
+                                review.put("rating", (int) rating);
+                                review.put("review", reviewText);
+                                userAlreadyReviewed = true;
+                                break;
+                            }
+                        }
+
+                        if (!userAlreadyReviewed) {
+                            Map<String, Object> newReview = new HashMap<>();
+                            newReview.put("email", currentUserEmail);
+                            newReview.put("rating", (int) rating);
+                            newReview.put("review", reviewText);
+
+                            reviews.add(newReview);
+
+                            ratingAmount += 1;
+                            totalRating += (int) rating;
+                        } else {
+                            totalRating = recalculateTotalRating(reviews);
+                        }
 
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("ratingAmount", ratingAmount);
@@ -273,5 +294,15 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.OnI
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Error querying item: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private Long recalculateTotalRating(List<Map<String, Object>> reviews) {
+        long total = 0;
+        for (Map<String, Object> review : reviews) {
+            if (review.containsKey("rating")) {
+                total += ((Number) Objects.requireNonNull(review.get("rating"))).intValue();
+            }
+        }
+        return total;
     }
 }
