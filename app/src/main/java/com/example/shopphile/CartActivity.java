@@ -145,8 +145,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
             return;
         }
 
+        String currentUserEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        assert currentUserEmail != null;
+
         db.collection("users")
-                .document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()))
+                .document(currentUserEmail)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
@@ -158,8 +161,14 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                             return;
                         }
 
+                        @SuppressWarnings("unchecked")
+                        List<Map<String, Object>> existingReviews = (List<Map<String, Object>>) documentSnapshot.get("reviews");
+                        if (existingReviews == null) {
+                            existingReviews = new ArrayList<>();
+                        }
+
                         List<Map<String, Object>> updatedCartItems = new ArrayList<>();
-                        List<Map<String, Object>> reviewItems = new ArrayList<>();
+                        List<Map<String, Object>> reviewItemsToAdd = new ArrayList<>();
 
                         for (Map<String, Object> item : cartItems) {
                             Map<String, Object> updatedItem = new HashMap<>(item);
@@ -168,26 +177,39 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                             updatedItem.put("orderDate", new Date());
                             updatedCartItems.add(updatedItem);
 
-                            Map<String, Object> reviewItem = new HashMap<>();
-                            reviewItem.put("productName", item.get("productName"));
-                            reviewItem.put("rating", 0);
-                            reviewItem.put("review", "");
-                            reviewItems.add(reviewItem);
+                            String productName = (String) item.get("productName");
+                            boolean alreadyReviewed = false;
+
+                            for (Map<String, Object> review : existingReviews) {
+                                assert productName != null;
+                                if (productName.equals(review.get("productName"))) {
+                                    alreadyReviewed = true;
+                                    break;
+                                }
+                            }
+
+                            if (!alreadyReviewed) {
+                                Map<String, Object> reviewItem = new HashMap<>();
+                                reviewItem.put("productName", productName);
+                                reviewItem.put("rating", 0);
+                                reviewItem.put("review", "");
+                                reviewItemsToAdd.add(reviewItem);
+                            }
                         }
 
                         db.collection("users")
-                                .document(mAuth.getCurrentUser().getEmail())
+                                .document(currentUserEmail)
                                 .update("orders", FieldValue.arrayUnion(updatedCartItems.toArray()))
                                 .addOnSuccessListener(aVoid -> {
-                                    for (Map<String, Object> review : reviewItems) {
+                                    for (Map<String, Object> review : reviewItemsToAdd) {
                                         db.collection("users")
-                                                .document(mAuth.getCurrentUser().getEmail())
+                                                .document(currentUserEmail)
                                                 .update("reviews", FieldValue.arrayUnion(review))
                                                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Error adding review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                                     }
 
                                     db.collection("users")
-                                            .document(mAuth.getCurrentUser().getEmail())
+                                            .document(currentUserEmail)
                                             .update("cart", new ArrayList<>())
                                             .addOnSuccessListener(aVoid1 -> {
                                                 Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
