@@ -37,6 +37,7 @@ public class ItemActivity extends AppCompatActivity {
         TextView productPriceTextView = findViewById(R.id.product_price);
         TextView productStockTextView = findViewById(R.id.product_stock);
         Button orderButton = findViewById(R.id.order_button);
+        Button readReviews = findViewById(R.id.read_reviews);
 
         Intent intent = getIntent();
 
@@ -94,6 +95,13 @@ public class ItemActivity extends AppCompatActivity {
                 Toast.makeText(ItemActivity.this, "Please log in to add items to your cart", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ItemActivity.this, LoginActivity.class));
             }
+        });
+
+        readReviews.setOnClickListener(v -> {
+            Intent reviewIntent = new Intent(this, ReviewActivity.class);
+            reviewIntent.putExtra("itemName", productName);
+
+            startActivity(reviewIntent);
         });
     }
 }
