@@ -32,4 +32,8 @@
     <string name="logout">Logout</string>
     <string name="user_example_com">user@example.com</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="rate_this_product">Rate this Product</string>
+    <string name="write_your_review">Write your review</string>
+    <string name="write_your_review_here">Write your review here</string>
+    <string name="this_cannot_be_changed">(this cannot be changed)</string>
 </resources>
