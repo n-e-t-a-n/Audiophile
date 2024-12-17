@@ -38,5 +38,5 @@
     <string name="this_cannot_be_changed">(this cannot be changed)</string>
     <string name="stars">★★★★★</string>
     <string name="great_product">Great product!</string>
-    <string name="by_user_example_com">By: user@example.com</string>
+    <string name="by_user_example_com">user@example.com</string>
 </resources>

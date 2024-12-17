@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#1e1b16</color>
+    <color name="light_black">#37323E</color>
     <color name="whitest">#ffffff</color>
-    <color name="white">#FDFBFB</color>
-    <color name="background">#fefafe</color>
+    <color name="white">#FFFBFA</color>
+    <color name="background">#CDD6D0</color>
+    <color name="light_yellow">#FBE2A9</color>
     <color name="yellow">#ffc63b</color>
-    <color name="darkYellow">#816e3b</color>
+    <color name="darkYellow">#9A7635</color>
     <color name="altYellow">#ffefd4</color>
     <color name="search">#f8f3f2</color>
     <color name="shopnow">#ffefd4</color>
     <color name="red">#ff897d</color>
+    <color name="lightest_magenta">#DFC2CA</color>
+    <color name="light_magenta">#C17A82</color>
+    <color name="magenta">#820933</color>
     <color name="altText">#8f877a</color>
     <color name="colorPrimary">#000000</color>
-    <color name="blue">#429AEF</color>
-    <color name="light_blue">#E0F7FA</color>
-    <color name="light_gray">#E0E0E0</color>
+    <color name="darkBlue">#2B5665</color>
+    <color name="blue">#1F7A8C</color>
+    <color name="light_blue">#8FBBC3</color>
+    <color name="light_gray">#746F72</color>
+    <color name="lightest_gray">#EEEAE9</color>
 </resources>

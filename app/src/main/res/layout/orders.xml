@@ -125,6 +125,7 @@
                         android:layout_weight="1"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/tune_24px"
+                        android:visibility="invisible"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
 

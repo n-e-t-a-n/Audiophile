@@ -2,8 +2,10 @@ package com.example.shopphile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class ItemActivity extends AppCompatActivity {
         TextView productPriceTextView = findViewById(R.id.product_price);
         TextView productStockTextView = findViewById(R.id.product_stock);
         Button orderButton = findViewById(R.id.order_button);
-        Button readReviews = findViewById(R.id.read_reviews);
+        ImageButton readReviews = findViewById(R.id.read_reviews);
 
         Intent intent = getIntent();
 

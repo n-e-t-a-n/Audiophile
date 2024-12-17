@@ -7,6 +7,22 @@
     android:background="@color/white"
     tools:context=".LoginActivity">
 
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="43dp"
+        android:src="@drawable/logo1"
+        app:layout_constraintBottom_toTopOf="@+id/login_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.984"
+        tools:ignore="ContentDescription,ImageContrastCheck,MissingConstraints" />
+
     <LinearLayout
         android:id="@+id/login_container"
         android:layout_width="0dp"
@@ -18,8 +34,10 @@
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.584">
 
         <TextView
             android:layout_width="match_parent"
@@ -51,7 +69,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_background"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="@color/lightest_gray"
             android:importantForAutofill="no"
             android:padding="10dp"
             android:text=""
@@ -79,7 +97,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="0dp"
             android:background="@drawable/edit_text_background"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="@color/lightest_gray"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:padding="10dp"
@@ -121,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:text="Forgot Password?"
-                android:textColor="#1976D2"
+                android:textColor="@color/darkYellow"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -160,9 +178,9 @@
             <TextView
                 android:id="@+id/signupLink"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Signup now"
-                android:textColor="#1976D2"
+                android:textColor="@color/darkYellow"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
