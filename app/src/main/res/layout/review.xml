@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:text="@string/great_product"
         android:layout_marginTop="4dp"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
 </LinearLayout>

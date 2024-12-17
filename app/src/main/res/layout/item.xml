@@ -78,7 +78,8 @@
         android:gravity="left"
         android:text="Seller: ABC Store"
         android:textColor="@android:color/darker_gray"
-        android:textSize="16sp"
+
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,8 +96,7 @@
         android:gravity="left"
         android:text="Category: Electronics"
         android:textColor="@android:color/darker_gray"
-
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -242,7 +242,7 @@
                     android:paddingRight="8dp"
                     android:text="@string/guitar"
                     android:textAllCaps="false"
-                    android:textColor="@color/altText"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
@@ -262,7 +262,7 @@
                     android:paddingRight="8dp"
                     android:text="@string/bass"
                     android:textAllCaps="false"
-                    android:textColor="@color/altText"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
@@ -282,7 +282,7 @@
                     android:paddingRight="8dp"
                     android:text="@string/keyboard"
                     android:textAllCaps="false"
-                    android:textColor="@color/altText"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
@@ -302,7 +302,7 @@
                     android:paddingRight="8dp"
                     android:text="@string/drums"
                     android:textAllCaps="false"
-                    android:textColor="@color/altText"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />

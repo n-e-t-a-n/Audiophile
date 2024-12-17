@@ -133,7 +133,7 @@ public class ShopActivity extends AppCompatActivity {
                 button.setTextColor(getResources().getColor(R.color.white));
             } else {
                 button.setBackgroundResource(R.drawable.normal_button);
-                button.setTextColor(getResources().getColor(R.color.altText));
+                button.setTextColor(getResources().getColor(R.color.black));
             }
         }
     }
