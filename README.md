@@ -1,8 +1,3 @@
-# Audiophile
-
-A simulated e-commerce application for musical tools. Created with the use of [Java](https://www.java.com/en/), [Android Studio](https://developer.android.com/studio),
-[Firebase](https://firebase.google.com/).
-
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
